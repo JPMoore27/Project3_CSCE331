@@ -1,0 +1,226 @@
+/* Reset some default browser styles */
+body, h1, h2, ul, li, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    animation: fadeIn 1s ease-in-out;  /* Fade-In Animation */
+}
+
+header {
+ 
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+nav {
+    margin-top: 1rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+nav li {
+    margin: 0 15px;
+    transition: all 0.3s;  /* Hover Animation for Navbar Items */
+}
+
+nav li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  /* Hover shadow effect */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;  /* Added transform to transitions */
+}
+
+nav a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);  /* Smooth Scaling of Links on Hover */
+}
+
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;  /* Transition for shadow effect */
+}
+
+section:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  /* Hover Shadow on Sections */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.brandName {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #fb3; 
+    transition: transform 0.3s; /* Smooth transition for the scaling effect */
+}
+
+.brandName:hover {
+    transform: scale(1.1); /* Increase the size by 10% on hover */
+}
+.navbar {
+    background-color: transparent;
+    opacity: 1; /* Adjust as needed */
+}
+nav {
+    background-color: transparent;
+    opacity: 1; /* Adjust as needed */
+}
+
+
+
+body::before {
+    content: "";
+    background-color: #000000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('C:\tamu\2023_2024\fall\csce_331\proj_3\Project3_CSCE331\assets\back_ground_pic\x.png');
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 1000px 800px;
+}
+
+.section-colored {
+    color: #f6bf60;
+    background-color: transparent;
+    font-size: 11px;
+    padding: 20px;
+    margin: 20px 0;
+    margin-top: 100px;
+    padding-top: 300px;
+    text-align: center;
+    width: 50%;
+    margin: 20px auto;
+    height: 100px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+nav li:first-child a {
+    color: #fb3;  /* Color for the first link (Home) */
+}
+
+.animation-bg {
+    background-color: black !important;
+}
+
+.fadeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    z-index: 9999;  /* high z-index to make sure it's on top of everything else */
+    animation: fadeInFromBlack 1s forwards;
+}
+
+@keyframes fadeInFromBlack {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.instagram-icon {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);  /* To center it vertically */
+    border-radius: 50%;           /* To make it circular */
+    background-color: #ffffff;    /* White background */
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);  /* Optional: Adds a little shadow */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.instagram-icon a {
+    display: block;
+    text-align: center;
+}
+
+.instagram-icon i {
+    font-size: 24px;
+    color: #E1306C;  /* Instagram color */
+}
+
+.instagram-icon:hover {
+    transform: translateY(-50%) scale(1.1);  /* Scales the icon up a bit */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);  /* Enhances the shadow */
+}
+
+
+
+.instagram-icon-container {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.instagram-icon-container:hover {
+    transform: translateY(-50%) scale(1.1);  /* On hover, it enlarges slightly */
+}
+.instagram-icon {
+    position: fixed;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.instagram-icon:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
