@@ -1,29 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import './styles.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
-import Menu from './Menu';
-import Footer from './Footer';
+import MenuPage from './MenuPage';
+import HomePage from './HomePage';
+import './styles.css';
 
 function App() {
-    const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+  // Create a state variable to control menu visibility
+  const [menuClicked, setMenuClicked] = useState(false);
 
-    useEffect(() => {
-        document.body.classList.add('animation-bg');
-        const timer = setTimeout(() => {
-            setIsOverlayVisible(false);
-            document.body.classList.remove('animation-bg');
-        }, 3000);  // 3 seconds for example
+  // Function to toggle the menu
+  const toggleMenu = () => {
+    setMenuClicked(!menuClicked);
+  };
 
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <div>
-            {isOverlayVisible && <div className="fadeOverlay"></div>}
-            <Header />
-            <Footer />
-        </div>
-    );
+  return (
+    <Router>
+      <div className={`App ${menuClicked ? 'menu-open' : ''}`}>
+        <Header navigate={(page) => toggleMenu()} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
+          {/* Other routes... */}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

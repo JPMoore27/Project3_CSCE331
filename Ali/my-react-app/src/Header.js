@@ -1,26 +1,19 @@
 import React from 'react';
 
-function Header() {
-    return (
-        <header>
-            <Navbar />
-        </header>
-    );
+function Header({ navigate }) {
+  return (
+    <header>
+      <nav className="navbar">
+        <span className="brandName">SWEET EUGENE'S</span>
+        <ul>
+          <li><button onClick={() => navigate('home')}>Home</button></li>
+          <li><button onClick={() => navigate('menu')}>Menu</button></li>
+          <li><button onClick={() => navigate('about')}>Manager</button></li>
+          <li><button onClick={() => navigate('contact')}>Contact</button></li>
+        </ul>
+      </nav>
+    </header>
+  );
 }
-
-function Navbar() {
-    return (
-        <nav className="navbar">
-            <span className="brandName">SWEET EUGENE'S</span>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/menu">Menu</a></li>
-                <li><a href="/about">Manager</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </nav>
-    );
-}
-
 
 export default Header;
