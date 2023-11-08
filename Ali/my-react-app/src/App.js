@@ -7,15 +7,20 @@ import './styles.css';
 
 function App() {
   // Create a state variable to control menu visibility
-  const [showMenu, setShowMenu] = useState(false);
+  const [menuClicked, setMenuClicked] = useState(false);
+
+  // Function to toggle the menu
+  const toggleMenu = () => {
+    setMenuClicked(!menuClicked);
+  };
 
   return (
     <Router>
-      <div className="App">
-        <Header navigate={(page) => setShowMenu(page === 'menu')} />
+      <div className={`App ${menuClicked ? 'menu-open' : ''}`}>
+        <Header navigate={(page) => toggleMenu()} />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={showMenu ? <MenuPage /> : null} /> {/* Show MenuPage only when showMenu is true */}
+          <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
           {/* Other routes... */}
         </Routes>
       </div>

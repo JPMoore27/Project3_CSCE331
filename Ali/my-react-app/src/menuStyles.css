@@ -121,9 +121,7 @@ nav {
 body::before {
     content: "";
     background-color: #000000;
-    /*background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('C:\tamu\2023_2024\fall\csce_331\proj_3\Project3_CSCE331\assets\back_ground_pic\x.png');
-    
-    */opacity: 1;
+    opacity: 1;
     top: 0;
     left: 0;
     bottom: 0;
