@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import './styles.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
-import Menu from './Menu';
-import Footer from './Footer';
+import MenuPage from './MenuPage';
+import HomePage from './HomePage'; // Make sure this import path is correct
+
+// Other imports...
 
 function App() {
-    const [isOverlayVisible, setIsOverlayVisible] = useState(true);
-
-    useEffect(() => {
-        document.body.classList.add('animation-bg');
-        const timer = setTimeout(() => {
-            setIsOverlayVisible(false);
-            document.body.classList.remove('animation-bg');
-        }, 3000);  // 3 seconds for example
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <div>
-            {isOverlayVisible && <div className="fadeOverlay"></div>}
-            <Header />
-            <Footer />
-        </div>
-    );
+  return (
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} /> {/* Assuming you have a HomePage component */}
+          <Route path="/menu" element={<MenuPage />} />
+          {/* Other routes... */}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
