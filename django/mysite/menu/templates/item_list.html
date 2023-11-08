@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item List</title>
+</head>
+<body>
+    <h1>Item Names</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.itemname }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
