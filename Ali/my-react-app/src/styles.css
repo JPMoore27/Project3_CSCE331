@@ -6,7 +6,7 @@ body, h1, h2, ul, li, p {
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #000000;
     animation: fadeIn 1s ease-in-out;  /* Fade-In Animation */
 }
 
@@ -53,6 +53,20 @@ nav a:hover {
     transform: scale(1.1);  /* Smooth Scaling of Links on Hover */
 }
 
+nav a, nav button { /* Apply same styles to buttons as well */
+    color: #fff;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit; /* Use the font size of the parent */
+    transition: color 0.3s, transform 0.3s; /* Added transform to transitions */
+}
+
+nav a:hover, nav button:hover { /* Same hover effect for both a and button */
+    color: #ffcc00;
+    transform: scale(1.1); /* Smooth Scaling of Links on Hover */
+}
 section {
     max-width: 800px;
     margin: 20px auto;
@@ -224,3 +238,26 @@ nav li:first-child a {
     transform: translateY(-50%) scale(1.1);
 }
 
+/* Add this to your CSS file */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1;
+}
+
+.menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 2;
+  /* Add more styles as needed */
+}
