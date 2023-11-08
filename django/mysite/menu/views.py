@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from .models import Item
+from .models import Items
 
 # Create your views here.
 
 def item_list(request):
-    items = Item.objects.all()  # Retrieve all items from the database
-    print("Items:", items)
-    print("Number of items:", items.count())
+    items = Items.objects.values('itemname').distinct()
     return render(request, 'item_list.html', {'items': items})
 

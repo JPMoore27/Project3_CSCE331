@@ -20,5 +20,5 @@ from menu.views import item_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('items/', item_list, name='item_list'),
+    path('menu/', item_list, name='item_list'),
 ]
