@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
           <Route path="/manager" element={<Manager />} />
+          <Route path="/menupage" element={<MenuPage />} />
           {/* Other routes... */}
         </Routes>
       </div>
