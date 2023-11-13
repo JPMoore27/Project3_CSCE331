@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import MenuPage from './MenuPage';
 import HomePage from './HomePage';
+import Manager from './Manager';
 import './styles.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
+          <Route path="/manager" element={<Manager />} />
           {/* Other routes... */}
         </Routes>
       </div>
