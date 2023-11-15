@@ -8,6 +8,7 @@ const Manager = () => {
   const [orders, setOrders] = useState([]);
   const [showCashierOptions, setShowCashierOptions] = useState(false);
   const [showReportsOptions, setShowReportsOptions] = useState(false);
+  const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
 
   const handleOrderSubmit = (order) => {
     setOrders([...orders, order]);
@@ -18,7 +19,6 @@ const Manager = () => {
   };
 
   const handleLogin = () => {
-    // Replace 'manager123' with your desired password
     if (password === 'manager123') {
       setAuthenticated(true);
     } else {
@@ -29,11 +29,19 @@ const Manager = () => {
   const handleCashierButtonClick = () => {
     setShowCashierOptions(!showCashierOptions);
     setShowReportsOptions(false); // Close Reports options if open
+    setShowEmployeeOptions(false); //Close Employee Button if open
   };
 
   const handleReportsButtonClick = () => {
     setShowReportsOptions(!showReportsOptions);
     setShowCashierOptions(false); // Close Cashier options if open
+    setShowEmployeeOptions(false); //Close Employee Button if open
+  };
+
+  const handleEmployeeButtonClick = () => {
+    setShowEmployeeOptions(!showEmployeeOptions);
+    setShowCashierOptions(false); // Close Cashier options if open
+    setShowReportsOptions(false); // Close Reports options if open
   };
 
   if (!authenticated) {
@@ -75,6 +83,18 @@ const Manager = () => {
             <button className="sub-button">Sales Report</button>
             <button className="sub-button">Cashier Sales</button>
             <button className="sub-button">Labor Report</button>
+          </div>
+        )}
+        <button className="heading-button" onClick={handleEmployeeButtonClick}>
+          Employee
+        </button>
+        {showEmployeeOptions && (
+          <div className="sub-button-container">
+            <button className="sub-button">Edit Clock-In/Out Time</button>
+            <button className="sub-button">Edit Inventory</button>
+            <button className="sub-button">Tax Reports</button>
+            <button className="sub-button">History</button>
+            <button className="sub-button">Reviews</button>
           </div>
         )}
       </div>
