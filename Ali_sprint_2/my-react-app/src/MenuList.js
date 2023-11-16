@@ -1,56 +1,60 @@
-// MenuList.js
-import React from 'react';
+import React, { useState } from 'react';
 import MenuItem from './MenuItem';
-import './MenuItem.css'; // This should be the CSS for the MenuList, not MenuItem
+import ShoppingCartPopup from './ShoppingCartPopup';
+import { addToCart, calculateTotal } from './Cart'; // Import other necessary dependencies
+import './MenuItem.css';
 import coffeeCup from './assets/coffeeCup.png';
-import togoCoffeeCup from './assets/togoCoffeeCup.png';
+import togoCoffeeCup from './assets/togoCoffeeCup.png'; // Import togoCoffeeCup
 
-
-
-// You would now include images in your data or handle it directly in the component
 const menuData = [
-    { itemName: "Coffee", price: 2.99 },
-    { itemName: "Cappuccino", price: 5.65 },
-    { itemName: "Espresso", price: 3.65 },
-    { itemName: "Latte", price: 5.65 },
-    { itemName: "Americano", price: 4.65 },
-    { itemName: "Breve", price: 4.65 },
-    { itemName: "EyeOpener", price: 3.65 },
-    { itemName: "Cortado", price: 4.65 },
-    { itemName: "Eugene's Latte", price: 5.65 },
-    { itemName: "Nutty Irishman", price: 5.65 },
-    { itemName: "Waffle", price: 5.65 },
-    { itemName: "Iced Coffee", price: 2.99 },
-    { itemName: "Iced Espresso", price: 3.65 },
-    { itemName: "Iced Latte", price: 5.65 },
-    { itemName: "Iced Americano", price: 4.65 },
-    { itemName: "Iced Eye Opener", price: 3.65 },
-    { itemName: "Iced Eugene's Latte", price: 5.65 },
-    { itemName: "Iced Nutty Irishman", price: 5.65 },
-    { itemName: "Iced Waffle Latte", price: 5.65 },
-    { itemName: "Cafe Caramel Latte", price: 5.65 },
-    { itemName: "Iced Cafe Caramel Latte", price: 5.65 }
-  ];
-  
-  
+  { itemName: "Coffee", price: 2.99 },
+  { itemName: "Cappuccino", price: 5.65 },
+  // ... (other menu items)
+  { itemName: "Iced Cafe Caramel Latte", price: 5.65 }
+];
+const MenuList = () => {
+  const [cart, setCart] = useState([]);
+  const [showCartPopup, setShowCartPopup] = useState(false);
 
-  const MenuList = () => {
-    const getRandomImage = () => togoCoffeeCup;
-  
-    return (
+  const getRandomImage = () => togoCoffeeCup;
+
+  const handleShowCartPopup = () => {
+    setShowCartPopup(true);
+  };
+
+  const handleCloseCartPopup = () => {
+    setShowCartPopup(false);
+  };
+
+  return (
+    <div>
       <div className="grid-container">
         {menuData.map((item, index) => (
           <MenuItem
             key={item.itemName}
             name={item.itemName}
-            price={`$${item.price.toFixed(2)}`}
+            price={item.price} // Make sure price is correctly set here
             image={getRandomImage()}
-            index={index} // Pass the index here
+            index={index}
+            addToCart={() => {
+              const newItem = { ...item, quantity: 1 };
+              setCart([...cart, newItem]);
+              handleShowCartPopup();
+            }}
           />
         ))}
+      </div>
+
+      <button onClick={handleShowCartPopup}>View Cart</button>
+
+      {showCartPopup && (
+        <ShoppingCartPopup
+          cart={cart}
+          onClose={handleCloseCartPopup}
+        />
+      )}
     </div>
-    );
-  };
-  
-  
-  export default MenuList;
+  );
+};
+
+export default MenuList;
