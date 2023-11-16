@@ -1,29 +1,26 @@
 // D3.js logic
 
 // Mock data
-let totalTasks = 13; // Total tasks for the sprint
-let doneTasks = 5; // Done by 2nd Nov
-let idealTasksPerDay = totalTasks / 7; // This is for the "Estimated Effort"
+let totalTasks = 34; // Total tasks now includes all tasks up to day 7
+let doneTasks = 18; // All tasks are completed by day 7
+let totalDays = 30; // Extend the sprint to 30 days
+let idealTasksPerDay = (totalTasks - doneTasks) / (totalDays - 7); // New ideal tasks per day
 
-let data = [
-    { day: 1, estimated: totalTasks, actual: totalTasks },
-    { day: 2, estimated: totalTasks * 5/6, actual: totalTasks - doneTasks },
-    { day: 3, estimated: totalTasks * 4/6, actual: totalTasks - doneTasks - 2 },
-    { day: 4, estimated: totalTasks * 3/6, actual: totalTasks - doneTasks - 4 },
-    { day: 5, estimated: totalTasks * 2/6, actual: totalTasks - doneTasks - 6 },
-    { day: 6, estimated: totalTasks * 1/6, actual: totalTasks - doneTasks - 8 },
-    { day: 7, estimated: 0, actual: 0 }  // On the last day, both should be zero.
-];
-
-
+let data = [];
+for (let day = 1; day <= totalDays; day++) {
+    let estimated = totalTasks - (idealTasksPerDay * (day - 7));
+    let actual = day <= 7 ? 0 : doneTasks; // All tasks done by day 7, so actual remains 'doneTasks' after day 7
+    data.push({ day: day, estimated: estimated, actual: actual });
+}
 
 const width = 600, height = 400;
 const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
-const x = d3.scaleLinear().range([margin.left, width - margin.right]).domain([1, 7]);
+// Adjust the x scale and x-axis
+const x = d3.scaleLinear().range([margin.left, width - margin.right]).domain([1, totalDays]);
 const y = d3.scaleLinear().range([height - margin.bottom, margin.top]).domain([0, totalTasks]);
 
-const xAxis = d3.axisBottom(x).tickValues(d3.range(1, 8)).tickFormat(d => `Day ${d}`);
+const xAxis = d3.axisBottom(x).tickFormat(d => `Day ${d}`);
 const yAxis = d3.axisLeft(y);
 
 const line = d3.line()

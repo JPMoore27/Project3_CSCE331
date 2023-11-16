@@ -35,21 +35,22 @@ const menuData = [
   
 
   const MenuList = () => {
-    // Get a random image for each menu item
-    const getRandomImage = () =>   togoCoffeeCup;
+    const getRandomImage = () => togoCoffeeCup;
   
     return (
       <div className="grid-container">
         {menuData.map((item, index) => (
           <MenuItem
-            key={item.itemName} // Use itemName as the key for lack of a unique ID
+            key={item.itemName}
             name={item.itemName}
-            price={`$${item.price.toFixed(2)}`} // toFixed(2) ensures the price is formatted to two decimal places
-            image={getRandomImage()} // Assign a random image to each item
+            price={`$${item.price.toFixed(2)}`}
+            image={getRandomImage()}
+            index={index} // Pass the index to each item
           />
         ))}
       </div>
     );
   };
+  
   
   export default MenuList;
