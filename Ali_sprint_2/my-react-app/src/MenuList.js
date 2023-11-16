@@ -5,6 +5,8 @@ import { calculateTotal } from './Cart'; // Import other necessary dependencies
 import './MenuItem.css';
 import coffeeCup from './assets/coffeeCup.png';
 import togoCoffeeCup from './assets/togoCoffeeCup.png'; // Import togoCoffeeCup
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const menuData = [
   { itemName: "Coffee", price: 2.99 },
@@ -15,6 +17,7 @@ const menuData = [
 const MenuList = () => {
   const [cart, setCart] = useState([]);
   const [showCartPopup, setShowCartPopup] = useState(false); // State to control the cart popup
+  const [animatingItems, setAnimatingItems] = useState([]); // State to track animating items
 
   const getRandomImage = () => togoCoffeeCup;
 
@@ -41,7 +44,11 @@ const MenuList = () => {
       setCart([...cart, newItem]);
     }
 
-    handleShowCartPopup();
+    // Add the item to the animatingItems array
+    setAnimatingItems([...animatingItems, item]);
+
+    // You can choose whether to show the cart popup here or not
+    // handleShowCartPopup();
   };
 
   return (
@@ -55,11 +62,15 @@ const MenuList = () => {
             image={getRandomImage()}
             index={index}
             addToCart={() => addToCart(item)}
+            animatingItems={animatingItems}
           />
         ))}
       </div>
 
-      <button onClick={handleShowCartPopup}>View Cart</button>
+      <div className="cart-icon" onClick={handleShowCartPopup}>
+        <FontAwesomeIcon icon={faShoppingCart} />
+        {animatingItems.length > 0 && <div className="animated-items">{animatingItems.length}</div>}
+      </div>
 
       {/* Render the cart popup component when showCartPopup is true */}
       {showCartPopup && (

@@ -21,11 +21,11 @@ const ShoppingCartPopup = ({ cart, onClose }) => {
       <div className="shopping-cart-popup">
         <h3>Shopping Cart</h3>
         <ul>
-          {cart.map((item, index) => (
-            <li key={index}>
-              {item.itemName} - ${item.price.toFixed(2)} x {item.quantity}
-            </li>
-          ))}
+            {cart.map((item, index) => (
+                <li key={index}>
+                    {item.itemName} - ${item.price.toFixed(2)} x {item.quantity}
+                </li>
+            ))}
         </ul>
         <button onClick={onClose}>Close</button>
       </div>

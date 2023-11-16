@@ -1,4 +1,4 @@
-// cart.js
+// Cart.js
 export function addToCart(cart, item, setCart) {
     const existingItem = cart.find(cartItem => cartItem.id === item.id);
     if (existingItem) {
