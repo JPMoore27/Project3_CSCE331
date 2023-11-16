@@ -1,19 +1,19 @@
 /* MenuList.css */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  grid-gap: 1rem; /* Space between items */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust columns based on card width */
+  grid-gap: 1rem;
   justify-content: center;
   align-content: center;
   padding: 1rem;
-  max-width: 1200px; /* Adjust based on your design */
+  max-width: 1200px;
   margin: auto;
 }
 
 /* Update this if you want a responsive layout */
 @media (max-width: 1200px) {
   .grid-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller columns for smaller screens */
   }
 }
 
@@ -146,4 +146,70 @@ margin: 0;
 .menu-item:hover {
 transform: scale(1.05);
 box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.menu-item {
+  perspective: 1000px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  position: relative;
+  width: 200px; /* Reduced width */
+  height: 250px; /* Reduced height */
+  transition: transform 0.3s ease;
+  opacity: 0; /* Start fully transparent */
+  transform: translateY(20px); /* Start slightly lower */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.menu-item.in-view {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Move to final position */
+}
+
+
+/* Front and back of the card */
+.menu-item-front, .menu-item-back {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s, box-shadow 0.3s, background-color 0.3s; /* Add transitions for smooth effect */
+}
+
+.menu-item-front {
+  /* Styles for the front */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px 0 rgba(228, 222, 222, 0.2);
+}
+
+.menu-item-back {
+  /* Styles for the back */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px 0 rgba(228, 222, 222, 0.2);
+  transform: rotateY(180deg);
+}
+
+/* Flip effect */
+.menu-item.flipped .menu-item-front {
+  transform: rotateY(-180deg);
+}
+
+.menu-item.flipped .menu-item-back {
+  transform: rotateY(0deg);
+}
+
+.menu-item:hover {
+  transform: scale(1.05); /* Scale up the card */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4); /* Add a deeper shadow */
+  background-color: #000; /* Slightly change the background color */
 }
