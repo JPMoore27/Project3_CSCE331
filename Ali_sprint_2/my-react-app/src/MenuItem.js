@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
 import './MenuItem.css';
 
 const MenuItem = ({ name, price, image, index }) => {
-  const [loaded, setLoaded] = useState(false);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
-  useEffect(() => {
-    // Set a timeout based on the index to delay the appearance
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, index * 100); // 100ms delay per item
-
-    return () => clearTimeout(timer); // Clear the timeout if the component unmounts
-  }, [index]);
+  // Assuming 5 items per row, adjust as needed
+  const row = Math.floor(index / 5);
+  const delay = (index % 5 + row) * 100; // Delay calculation
 
   return (
-    <div className={`menu-item ${loaded ? 'loaded' : ''}`}>
+    <div
+      ref={ref}
+      className={`menu-item ${inView ? 'in-view' : ''}`}
+      style={{ transitionDelay: `${inView ? delay : 0}ms` }}
+    >
       <div className="menu-item-content">
         <img src={image} alt={name} className="menu-item-image" />
         <h3 className="menu-item-name">{name}</h3>

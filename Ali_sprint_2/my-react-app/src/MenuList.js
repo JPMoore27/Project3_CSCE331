@@ -45,10 +45,10 @@ const menuData = [
             name={item.itemName}
             price={`$${item.price.toFixed(2)}`}
             image={getRandomImage()}
-            index={index} // Pass the index to each item
+            index={index} // Pass the index here
           />
         ))}
-      </div>
+    </div>
     );
   };
   
