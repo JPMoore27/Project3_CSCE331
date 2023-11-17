@@ -1,6 +1,7 @@
-// MenuItem.js
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons'; // Import the rotation icon
 import './MenuItem.css';
 
 const MenuItem = ({ name, price, image, index, addToCart, cart, setCart }) => {
@@ -10,8 +11,8 @@ const MenuItem = ({ name, price, image, index, addToCart, cart, setCart }) => {
     threshold: 0.1,
   });
 
-  // Flip card handler
-  const handleFlip = () => {
+  // Rotate card handler
+  const handleRotate = () => {
     setIsFlipped(!isFlipped);
   };
 
@@ -33,12 +34,28 @@ const MenuItem = ({ name, price, image, index, addToCart, cart, setCart }) => {
       style={{ transitionDelay: `${inView ? delay : 0}ms` }}
     >
       <div className="menu-item-front">
+        <div className="menu-item-top-right">
+          {/* Add a rotation icon to rotate to the back */}
+          <FontAwesomeIcon
+            icon={faSync}
+            className="rotate-icon"
+            onClick={handleRotate}
+          />
+        </div>
         <img src={image} alt={name} className="menu-item-image" />
         <h3 className="menu-item-name">{name}</h3>
         <p className="menu-item-price">${price.toFixed(2)}</p>
         <button className="menu-item-button" onClick={handleAddToCart}>Add to cart</button>
       </div>
       <div className="menu-item-back">
+        <div className="menu-item-top-right">
+          {/* Add a rotation icon to rotate back to the front */}
+          <FontAwesomeIcon
+            icon={faSync}
+            className="rotate-icon"
+            onClick={handleRotate}
+          />
+        </div>
         <h3>Ingredients</h3>
         <p>Espresso, Milk, Sugar, Water</p> {/* Placeholder text */}
       </div>

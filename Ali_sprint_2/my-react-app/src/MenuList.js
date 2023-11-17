@@ -11,8 +11,27 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 const menuData = [
   { itemName: "Coffee", price: 2.99 },
   { itemName: "Cappuccino", price: 5.65 },
-  // ... (other menu items)
+  { itemName: "Espresso", price: 3.65 },
+  { itemName: "Latte", price: 5.65 },
+  { itemName: "Americano", price: 4.65 },
+  { itemName: "Breve", price: 4.65 },
+  { itemName: "EyeOpener", price: 3.65 },
+  { itemName: "Cortado", price: 4.65 },
+  { itemName: "Eugene's Latte", price: 5.65 },
+  { itemName: "Nutty Irishman", price: 5.65 },
+  { itemName: "Waffle", price: 5.65 },
+  { itemName: "Iced Coffee", price: 2.99 },
+  { itemName: "Iced Espresso", price: 3.65 },
+  { itemName: "Iced Latte", price: 5.65 },
+  { itemName: "Iced Americano", price: 4.65 },
+  { itemName: "Iced Eye Opener", price: 3.65 },
+  { itemName: "Iced Eugene's Latte", price: 5.65 },
+  { itemName: "Iced Nutty Irishman", price: 5.65 },
+  { itemName: "Iced Waffle Latte", price: 5.65 },
+  { itemName: "Cafe Caramel Latte", price: 5.65 },
+  { itemName: "Iced Cafe Caramel Latte", price: 5.65 }
 ];
+
 
 const MenuList = () => {
   const [cart, setCart] = useState([]);
