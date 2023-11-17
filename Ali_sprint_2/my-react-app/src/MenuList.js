@@ -46,9 +46,15 @@ const MenuList = () => {
 
     // Add the item to the animatingItems array
     setAnimatingItems([...animatingItems, item]);
+  };
 
-    // You can choose whether to show the cart popup here or not
-    // handleShowCartPopup();
+  const removeFromCart = (itemToRemove) => {
+    const updatedCart = cart.filter((item) => item.itemName !== itemToRemove.itemName);
+    setCart(updatedCart);
+
+    // Update the animatingItems array to remove the item
+    const updatedAnimatingItems = animatingItems.filter((item) => item.itemName !== itemToRemove.itemName);
+    setAnimatingItems(updatedAnimatingItems);
   };
 
   return (
@@ -77,6 +83,7 @@ const MenuList = () => {
         <ShoppingCartPopup
           cart={cart}
           onClose={handleCloseCartPopup}
+          onRemoveItem={removeFromCart}
         />
       )}
     </div>
