@@ -9,9 +9,9 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'fixed',
-    top: 30, // Adjust top padding
+    top: 30,
     right: 0,
-    bottom: 30, // Adjust bottom padding
+    bottom: 30,
     left: 0,
     background: 'rgba(0, 0, 0, 0.7)',
     zIndex: 1000,
@@ -19,8 +19,7 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
 
   const boxStyles = {
     width: '400px',
-    height: '100px',
-    background: 'rgba(0, 0, 0, 0.8)', // Transparent white background
+    background: 'rgba(0, 0, 0, 0.8)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -35,19 +34,18 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
     cursor: 'pointer',
   };
 
-
   const removeButtonStyles = {
-    backgroundColor: '#ffcc00', // Background color for the minus sign icon
-    borderRadius: '50%', // Rounded border for a circular shape
-    padding: '2px', // Adjust padding as needed
-    
-    margin: '10px', // Add margin for spacing between icon and text
-    cursor: 'pointer', // Change cursor to a pointer on hover
+    backgroundColor: '#ffcc00',
+    borderRadius: '50%',
+    padding: '2px',
+    margin: '10px',
+    cursor: 'pointer',
   };
 
   const listItemStyles = {
-    marginBottom: '10px', // Add margin between list items
+    marginBottom: '10px',
   };
+
   return (
     <div style={popupStyles}>
       <div style={boxStyles}>
@@ -60,13 +58,14 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
         <h3>Shopping Cart</h3>
         <ul>
           {cart.map((item, index) => (
-            <li key={index}>
+            <li key={index} style={listItemStyles}>
               {item.itemName} - ${item.price.toFixed(2)} x {item.quantity}
-              <span style={removeButtonStyles}>
+              <span>
                 <FontAwesomeIcon
                   icon={faMinusCircle}
                   className="remove-icon"
                   onClick={() => onRemoveItem(item)}
+                  style={removeButtonStyles}
                 />
               </span>
             </li>
