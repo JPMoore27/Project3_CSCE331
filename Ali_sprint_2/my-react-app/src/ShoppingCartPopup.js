@@ -20,7 +20,7 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
   const boxStyles = {
     width: '400px',
     height: '100px',
-    background: 'rgba(0, 0, 0, 0.6)', // Transparent white background
+    background: 'rgba(0, 0, 0, 0.8)', // Transparent white background
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
