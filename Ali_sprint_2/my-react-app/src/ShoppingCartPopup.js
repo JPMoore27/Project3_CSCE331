@@ -1,38 +1,62 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
-  // CSS styles for centering the shopping cart
   const popupStyles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'fixed',
-    top: 0,
+    top: 30, // Adjust top padding
     right: 0,
-    bottom: 0,
+    bottom: 30, // Adjust bottom padding
     left: 0,
     background: 'rgba(0, 0, 0, 0.7)',
     zIndex: 1000,
-    padding: '20px', // Add padding for spacing
-    margin: '10px', // Add margin for spacing between icon and text
   };
-  
+
+  const boxStyles = {
+    width: '400px',
+    height: '100px',
+    background: 'rgba(255, 255, 255, 0)', // Transparent white background
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  };
+
+  const closeButtonStyles = {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    cursor: 'pointer',
+  };
+
 
   const removeButtonStyles = {
     backgroundColor: '#ffcc00', // Background color for the minus sign icon
     borderRadius: '50%', // Rounded border for a circular shape
-    padding: '4px', // Adjust padding as needed
+    padding: '2px', // Adjust padding as needed
     
     margin: '10px', // Add margin for spacing between icon and text
     cursor: 'pointer', // Change cursor to a pointer on hover
   };
 
+  const listItemStyles = {
+    marginBottom: '10px', // Add margin between list items
+  };
   return (
     <div style={popupStyles}>
-      <div className="shopping-cart-popup">
+      <div style={boxStyles}>
+        <FontAwesomeIcon
+          icon={faTimes}
+          className="close-icon"
+          style={closeButtonStyles}
+          onClick={onClose}
+        />
         <h3>Shopping Cart</h3>
         <ul>
           {cart.map((item, index) => (
@@ -48,7 +72,6 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
             </li>
           ))}
         </ul>
-        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
