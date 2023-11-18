@@ -10,8 +10,8 @@
             text-align: center;
         }
         #chartContainer {
-            width: 400px; /* Adjust this value to control chart width */
-            height: 300px; /* Adjust this value to control chart height */
+            width: 600px; /* Adjust this value to control chart width */
+            height: 700px; /* Adjust this value to control chart height */
             margin: 20px auto;  /* Center the chart */
         }
         #burndownChart {
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<h2>Sprint One Burndown Chart</h2>
+<h2>Burndown Chart</h2>
 
 <div id="chartContainer">
     <canvas id="burndownChart"></canvas>
@@ -31,59 +31,81 @@
 <script>
     var ctx = document.getElementById('burndownChart').getContext('2d');
 
-let totalTasks = 13; // for example
-let doneTasks = 3; // completed tasks
+    let totalTasks = 34; // for example
+    let totalDays = 30; // Extend the sprint to 30 days (or any desired number)
 
-var chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-        datasets: [
-            {
-                label: 'Estimated Effort',
-                data: [totalTasks, totalTasks * 5/6, totalTasks * 4/6, totalTasks * 3/6, totalTasks * 2/6, totalTasks * 1/6, 0],
-                borderColor: 'rgba(255, 0, 0, 1)',
-                fill: false,
-                pointRadius: 5,
-                pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Actual Effort',
-                data: [totalTasks, totalTasks - doneTasks, totalTasks - doneTasks - 2, totalTasks - doneTasks - 4, totalTasks - doneTasks - 6, totalTasks - doneTasks - 8, 0],
-                borderColor: 'rgba(0, 123, 255, 1)',
-                fill: false,
-                pointRadius: 5,
-                pointBackgroundColor: 'rgba(0, 123, 255, 1)',
-                borderWidth: 2
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        title: {
-            display: true,
-            text: 'Sprint One Burndown Chart',
-            fontSize: 20
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        },
-        animation: {
-            duration: 2000, // general animation time
-            easing: 'easeInOutQuart'
-        },
-        hover: {
-            animationDuration: 1000, // duration of animations when hovering an item
+    // Calculate data for Estimated Effort and Actual Effort
+    let estimatedData = [];
+    let actualData = [];
+
+    for (let day = 0; day <= totalDays; day++) {
+        let estimated = totalTasks - (totalTasks * (day / totalDays));
+        let actual = 0;
+
+        if (day <= 7) {
+            actual = 34 - ((13 / 7) * day); // Gradually decrease tasks to be done up to day 7
+        } else if (day <= 13) {
+            actual = 21 - ((5 / 6) * (day - 7)); // Gradually decrease tasks to be done from day 8 to day 13
+        } else {
+            actual = 16 - ((1 / 17) * (day - 13)); // Gradually decrease tasks to be done after day 13
         }
-    }
-});
 
+        estimatedData.push(estimated);
+        actualData.push(actual);
+    }
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: totalDays + 1 }, (_, i) => `Day ${i}`),
+            datasets: [
+                {
+                    label: 'Estimated Effort',
+                    data: estimatedData,
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    fill: false,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Actual Effort',
+                    data: actualData,
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    fill: false,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Sprint Burndown Chart',
+                fontSize: 20
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            animation: {
+                duration: 2000, // general animation time
+                easing: 'easeInOutQuart'
+            },
+            hover: {
+                animationDuration: 1000, // duration of animations when hovering an item
+            }
+        }
+    });
 </script>
+
+
+
 
 </body>
 </html>

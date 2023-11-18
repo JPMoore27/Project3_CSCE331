@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import MenuPage from './MenuPage';
-import HomePage from './HomePage';
+import Home from './Home';
 import Manager from './Manager';
+import Cashier from './Cashier';
+import Customer from './Customer';
 import './styles.css';
 
 function App() {
@@ -20,10 +22,11 @@ function App() {
       <div className={`App ${menuClicked ? 'menu-open' : ''}`}>
         <Header navigate={(page) => toggleMenu()} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
+          <Route path="/home" element={<Home />} />
           <Route path="/manager" element={<Manager />} />
           <Route path="/menupage" element={<MenuPage />} />
+          <Route path="/customer" element={<Customer />} />
+          <Route path="/cashier" element={<Cashier />} />
           {/* Other routes... */}
         </Routes>
       </div>

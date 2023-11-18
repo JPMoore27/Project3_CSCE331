@@ -160,10 +160,6 @@ body::before {
     }
 }
 
-nav li:first-child a {
-    color: #fb3;  /* Color for the first link (Home) */
-}
-
 .animation-bg {
     background-color: black !important;
 }
@@ -239,4 +235,5 @@ nav li:first-child a {
 .instagram-icon:hover {
     transform: translateY(-50%) scale(1.1);
 }
+  
 

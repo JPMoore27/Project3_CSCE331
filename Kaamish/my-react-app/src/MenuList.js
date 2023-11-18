@@ -36,7 +36,7 @@ const menuData = [
 
   const MenuList = () => {
     // Get a random image for each menu item
-    const getRandomImage = () =>   togoCoffeeCup;
+    const getRandomImage = () => Math.random() < 0.5 ? coffeeCup : togoCoffeeCup;
   
     return (
       <div className="grid-container">
