@@ -13,7 +13,7 @@ def item_list(request):
     items = Items.objects.values('itemname').distinct()
     return render(request, 'item_list.html', {'items': items})
 
-class ItemsApiView(ListAPIView):
+class ItemsApiView(APIView):
     def get(self, request, *args, **kwargs):
         queryset = Items.objects.all()
         serializer = ItemsSerializer(queryset, many=True)
