@@ -1,66 +1,47 @@
-/* Manager.css */
 .manager-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* 100% of the viewport height */
-  }
-  
-  .password-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* Align at the top of the container */
-    height: 100vh;
-    margin-top: 50px; /* Add margin at the top for better spacing */
-  }
-  
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .heading-button {
-    padding: 20px;
-    font-size: 24px; /* Bigger font size */
-    background-color: #fb3; /* Yellow */
-    color: #000; /* Black */
-    border: none;
-    cursor: pointer;
-    width: 200px;
-  }
-  
-  .heading-button:hover {
-    background-color: rgb(255, 170, 0); /* Darker yellow on hover */
-  }
-  
-  /* Adjust styling for manager login button */
-  .password-container h2 {
-    font-size: 40px; /* Bigger font size */
-    color: #fb3; /* Yellow */
-    margin-bottom: 20px; /* Add margin at the bottom for better spacing */
-  }
-  
-  /* Add styling for sub-buttons */
-  .sub-button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px; /* Add margin at the top for better spacing */
-  }
-  
-  .sub-button {
-    padding: 10px;
-    font-size: 14px;
-    background-color: #e56700; /* Yellow */
-    color: #000; /* Black */
-    border: none;
-    cursor: pointer;
-  }
-  
-  .sub-button:hover {
-    background-color: #ff7300; /* Darker yellow on hover */
-  }
-  
+  background-image: url('assets/back_ground_pic/x.png');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin-top: 50px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Make the buttons vertical again */
+  gap: 20px; /* Add gap between buttons for better spacing */
+  margin-top: 20px; /* Move the buttons down a bit */
+}
+
+.heading-button {
+  padding: 20px;
+  font-size: 24px;
+  background-color: #fb3;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  width: 200px;
+  text-align: center;
+}
+
+.heading-button:hover {
+  background-color: rgb(255, 170, 0);
+}
+
+.password-container h2 {
+  font-size: 40px;
+  color: #fb3;
+  margin-bottom: 20px;
+}
