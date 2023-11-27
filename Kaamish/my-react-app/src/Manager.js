@@ -1,14 +1,13 @@
 // Manager.js
 import React, { useState } from 'react';
-import './Manager.css'; // Import the CSS file for styling
+import { Route, Link, Routes } from 'react-router-dom';
+import Sales from './ManagerButtons/Sales.js';
+import './Manager.css';
 
 const Manager = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [orders, setOrders] = useState([]);
-  const [showCashierOptions, setShowCashierOptions] = useState(false);
-  const [showReportsOptions, setShowReportsOptions] = useState(false);
-  const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
 
   const handleOrderSubmit = (order) => {
     setOrders([...orders, order]);
@@ -24,24 +23,6 @@ const Manager = () => {
     } else {
       alert('Incorrect password. Please try again.');
     }
-  };
-
-  const handleCashierButtonClick = () => {
-    setShowCashierOptions(!showCashierOptions);
-    setShowReportsOptions(false); // Close Reports options if open
-    setShowEmployeeOptions(false); //Close Employee Button if open
-  };
-
-  const handleReportsButtonClick = () => {
-    setShowReportsOptions(!showReportsOptions);
-    setShowCashierOptions(false); // Close Cashier options if open
-    setShowEmployeeOptions(false); //Close Employee Button if open
-  };
-
-  const handleEmployeeButtonClick = () => {
-    setShowEmployeeOptions(!showEmployeeOptions);
-    setShowCashierOptions(false); // Close Cashier options if open
-    setShowReportsOptions(false); // Close Reports options if open
   };
 
   if (!authenticated) {
@@ -61,42 +42,28 @@ const Manager = () => {
 
   return (
     <div className="manager-container">
-      {/* Heading buttons for Cashier and Reports */}
+      {/* Heading buttons for Cashier, Reports, Employee, Inventory, and Settings */}
       <div className="button-container">
-        <button className="heading-button" onClick={handleCashierButtonClick}>
+        <Link to="/cashier" className="heading-button">
           Cashier
-        </button>
-        {showCashierOptions && (
-          <div className="sub-button-container">
-            <button className="sub-button">Check-In</button>
-            <button className="sub-button">Check-Out</button>
-            <button className="sub-button">Open Drawer</button>
-          </div>
-        )}
-        <button className="heading-button" onClick={handleReportsButtonClick}>
+        </Link>
+        <Link to="/reports" className="heading-button">
           Reports
-        </button>
-        {showReportsOptions && (
-          <div className="sub-button-container">
-            <button className="sub-button">Inventory</button>
-            <button className="sub-button">Flash Reports</button>
-            <button className="sub-button">Sales Report</button>
-            <button className="sub-button">Cashier Sales</button>
-            <button className="sub-button">Labor Report</button>
-          </div>
-        )}
-        <button className="heading-button" onClick={handleEmployeeButtonClick}>
+        </Link>
+        <Link to="/employee" className="heading-button">
           Employee
-        </button>
-        {showEmployeeOptions && (
-          <div className="sub-button-container">
-            <button className="sub-button">Edit Clock-In/Out Time</button>
-            <button className="sub-button">Edit Inventory</button>
-            <button className="sub-button">Tax Reports</button>
-            <button className="sub-button">History</button>
-            <button className="sub-button">Reviews</button>
-          </div>
-        )}
+        </Link>
+
+        {/* New buttons: Inventory, Settings, and Sales */}
+        <Link to="/inventory" className="heading-button">
+          Inventory
+        </Link>
+        <Link to="/settings" className="heading-button">
+          Settings
+        </Link>
+        <Link to="/sales" className="heading-button">
+        Sales
+        </Link>
       </div>
 
       {/* Display order management UI */}
@@ -107,6 +74,16 @@ const Manager = () => {
           ))}
         </ul>
       </div>
+
+      {/* Define routes for each page */}
+      <Routes>
+        <Route path="/cashier" element={<div>Cashier Page</div>} />
+        <Route path="/reports" element={<div>Reports Page</div>} />
+        <Route path="/employee" element={<div>Employee Page</div>} />
+        <Route path="/inventory" element={<div>Inventory Page</div>} />
+        <Route path="/settings" element={<div>Settings Page</div>} />
+        <Route path="/sales" element={<Sales />} />
+      </Routes>
     </div>
   );
 };
