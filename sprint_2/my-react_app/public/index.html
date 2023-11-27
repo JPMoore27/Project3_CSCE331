@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ... (your existing head content) ... -->
+    <title>Sweet Eugene's</title>
+    <style>
+      /* Additional styles for positioning the Google Translate widget */
+      #google_translate_element {
+        position: fixed;
+        bottom: 0;
+        left: 6%;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <!-- Google Translate Script -->
+    <div id="google_translate_element"></div>
+    <script>
+      function addGoogleTranslateScript() {
+        const script = document.createElement('script');
+        script.src =
+          'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: 'en' },
+          'google_translate_element'
+        );
+      }
+
+      // Ensure that the React app is rendered before loading Google Translate script
+      window.onload = addGoogleTranslateScript;
+    </script>
+
+    <!-- React App Script -->
+    <script src="/static/js/bundle.js"></script>
+  </body>
+</html>
