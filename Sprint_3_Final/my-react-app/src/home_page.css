@@ -1,0 +1,15 @@
+.image_on_main_page {
+    display: block;
+    margin: auto;
+    width: 700px;
+    height: 450px;
+}
+.home-container {
+    background-image: url('assets/back_ground_pic/x.png');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
