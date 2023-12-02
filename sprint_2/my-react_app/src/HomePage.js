@@ -5,8 +5,8 @@ import './home_page.css';
 const HomePage = () => {
   const getRandomImage = () => back_ground_pic;
   return (
-    <div>
-      <img src={getRandomImage()} alt="coffee" className="image_on_main_page"/>
+    <div className='home-container'>
+      {/* <img src={getRandomImage()} alt="coffee" className="image_on_main_page"/> */}
     </div>
   );
 };
