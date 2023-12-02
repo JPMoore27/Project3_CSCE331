@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const MenuApiConnect = () => {
-  const [data, setData] = useState(null);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,7 +14,14 @@ const MenuApiConnect = () => {
         return response.json();
       })
       .then(data => {
-        setData(data);
+        // Create an object to track seen item names
+        const seen = {};
+        // Filter out items with duplicate item names
+        const filteredItems = data.filter(item => {
+          return seen.hasOwnProperty(item.itemname) ? false : (seen[item.itemname] = true);
+        });
+
+        setItems(filteredItems);
         setLoading(false);
       })
       .catch(error => {
@@ -25,10 +32,18 @@ const MenuApiConnect = () => {
 
   return (
     <div>
-      <h1>API Data</h1>
+      <h1>Menu Items</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      {!loading && !error && (
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>
+              {item.itemname} - ${item.price}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
