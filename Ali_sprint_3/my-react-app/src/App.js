@@ -31,9 +31,6 @@ function App() {
           <Route path="/cashier" element={<Cashier />} />
           {/* Other routes... */}
         </Routes>
-        <div className="App">
-          <MenuApiConnect /> {/* Use the component */}
-        </div>
       </div>
     </Router>
   );
