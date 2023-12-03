@@ -7,6 +7,8 @@ import Manager from './Manager';
 import Cashier from './Cashier';
 import CustomerPage from './CustomerPage';
 import './styles.css';
+import './AddNewItem';
+import AddNewItem from './AddNewItem';
 /*global google*/
 
 function App() {
@@ -55,7 +57,11 @@ function App() {
         </Routes>
         <div id="signinDiv"></div>
       </div>
+      <div>
+        <AddNewItem />
+      </div>
     </Router>
+    
   );
 }
 
