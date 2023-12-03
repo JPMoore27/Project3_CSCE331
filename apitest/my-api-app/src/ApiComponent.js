@@ -39,15 +39,14 @@ const ItemList = () => {
 
   const findLowestAvailableItemId = () => {
     const itemIds = items.map(item => item.itemid);
-    const allItemIds = Array.from({ length: Math.max(...itemIds) + 2 }, (_, i) => i);
-    return allItemIds.find(itemId => !itemIds.includes(itemId));
+    return Math.max(0, ...itemIds) + 1; // Return 1 more than the highest in-use itemid
   };
 
   const handleAddItem = async () => {
     try {
       const newItemId = findLowestAvailableItemId();
       const startKey = findLowestAvailableKey(); // Find the starting key
-  
+
       // Create a new item for each selected stock item
       const newItemPromises = selectedStockItems.map(async (stockItem, index) => {
         const newKeyForEntry = startKey + index; // Generate a new key for each entry
@@ -59,10 +58,10 @@ const ItemList = () => {
         });
         return response.data;
       });
-  
+
       // Wait for all new items to be created
       const newItems = await Promise.all(newItemPromises);
-  
+
       setItems([...items, ...newItems]);
       setNewItem({ itemname: '', price: 0, stockid: 0, dairy: false });
       setSelectedStockItems([]); // Reset selected stock items
@@ -80,11 +79,15 @@ const ItemList = () => {
     }
   };
 
+  // Filter items to show only those with unique itemid
+  const uniqueItems = Array.from(new Set(items.map(item => item.itemid)))
+    .map(itemid => items.find(item => item.itemid === itemid));
+
   return (
     <div>
       <h2>Items List</h2>
       <ul>
-        {items.map(item => (
+        {uniqueItems.map(item => (
           <li key={item.key}>
             {item.itemname} - ${item.price}
             <button onClick={() => handleDeleteItem(item.key)}>Delete</button>

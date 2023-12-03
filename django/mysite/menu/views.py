@@ -28,6 +28,9 @@ class ItemsApiView(APIView):
 
     def delete(self, request, *args, **kwargs):
         item_id = kwargs.get('pk')
+        if 'itemid' in request.GET:
+            item_id = request.GET.get('itemid')
+
         try:
             item = Items.objects.get(key=item_id)
         except Items.DoesNotExist:
