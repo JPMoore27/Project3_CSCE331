@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './Header';
 import MenuPage from './MenuPage';
 import HomePage from './HomePage';
 import Manager from './Manager';
 import Cashier from './Cashier';
-import Customer from './Customer';
+import CustomerPage from './CustomerPage';
 import './styles.css';
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [menuClicked, setMenuClicked] = useState(false); // Define the state variable
+  const [menuClicked, setMenuClicked] = useState(false);
 
-  const toggleMenu = () => { // Define the toggleMenu function
+  const toggleMenu = () => {
     setMenuClicked(!menuClicked);
   };
 
@@ -53,7 +53,7 @@ function App() {
               <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
               <Route path="/manager" element={<Manager />} />
               <Route path="/menupage" element={<MenuPage />} />
-              <Route path="/customer" element={<Customer />} />
+              <Route path="/customer" element={<CustomerPage />} />
               <Route path="/cashier" element={<Cashier />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />

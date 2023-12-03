@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import ShoppingCartCheckOut from './ShoppingCartCheckOut';
 
 const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
   const popupStyles = {
@@ -37,8 +38,8 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
   const removeButtonStyles = {
     backgroundColor: '#ffcc00',
     borderRadius: '50%',
-    padding: '2px',
-    margin: '10px',
+    padding: '4px',
+    margin: '12px',
     cursor: 'pointer',
   };
 
@@ -74,6 +75,7 @@ const ShoppingCartPopup = ({ cart, onClose, onRemoveItem }) => {
             </li>
           ))}
         </ul>
+        <ShoppingCartCheckOut cart={cart} />
       </div>
     </div>
   );
