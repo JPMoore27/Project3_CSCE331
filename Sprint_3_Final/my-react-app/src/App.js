@@ -8,7 +8,7 @@ import Cashier from './Cashier';
 import CustomerPage from './CustomerPage';
 import './styles.css';
 import { GoogleLogin } from '@react-oauth/google';
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
