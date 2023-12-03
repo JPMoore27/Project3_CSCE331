@@ -1,75 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ApiComponent = () => {
-  const [items, setItems] = useState({});
-  const [loading, setLoading] = useState(true);
+const API_BASE_URL = 'http://127.0.0.1:8000/api/items/';  // Replace with your Django API base URL
+
+const ItemList = () => {
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState({ itemname: '', price: 0 });  // Example, modify as needed
 
   useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/api/items/');
-        console.log('API Response:', response.data);
-
-        setItems(response.data);
-      } catch (error) {
-        console.error('Error fetching items:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    // Fetch items on component mount
     fetchItems();
   }, []);
 
-  const addItem = async () => {
+  const fetchItems = async () => {
     try {
-      const newItem = {
-        itemname: 'test',
-        key: 57,
-        itemid: 21,
-        // Add other properties as needed
-      };
-
-      const response = await axios.post('http://127.0.0.1:8000/api/items/', newItem);
-
-      // Assuming the API returns the updated list of items after adding a new item
+      const response = await axios.get(`${API_BASE_URL}/items/`);
       setItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
+  };
+
+  const handleAddItem = async () => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/items/`, newItem);
+      setItems([...items, response.data]);
+      setNewItem({ itemname: '', price: 0 });  // Clear input fields
     } catch (error) {
       console.error('Error adding item:', error);
     }
   };
 
-  const removeItem = async (itemId) => {
+  const handleDeleteItem = async (itemId) => {
     try {
-      // Send a DELETE request to remove the item
-      const response = await axios.delete(`http://127.0.0.1:8000/api/items/${itemId}`);
-
-      // Assuming the API returns the updated list of items after deleting the item
-      setItems(response.data);
+      await axios.delete(`${API_BASE_URL}/items/${itemId}/`);
+      setItems(items.filter(item => item.key !== itemId));
     } catch (error) {
-      console.error(`Error removing item with ID ${itemId}:`, error);
+      console.error('Error deleting item:', error);
     }
   };
 
   return (
     <div>
-      <h2>Items</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <button onClick={addItem}>Add Item</button>
-          {Object.keys(items).map(key => (
-            <div key={key}>
-              <span>{items[key].itemname}</span>
-              <button onClick={() => removeItem(items[key].key)}>Remove</button>
-            </div>
-          ))}
-        </div>
-      )}
+      <h2>Items List</h2>
+      <ul>
+        {items.map(item => (
+          <li key={item.key}>
+            {item.itemname} - ${item.price}
+            <button onClick={() => handleDeleteItem(item.key)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <h2>Add New Item</h2>
+      <div>
+        <label>
+          Item Name:
+          <input
+            type="text"
+            value={newItem.itemname}
+            onChange={(e) => setNewItem({ ...newItem, itemname: e.target.value })}
+          />
+        </label>
+        <label>
+          Price:
+          <input
+            type="number"
+            value={newItem.price}
+            onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
+          />
+        </label>
+        <button onClick={handleAddItem}>Add Item</button>
+      </div>
     </div>
   );
 };
 
-export default ApiComponent;
+export default ItemList;
