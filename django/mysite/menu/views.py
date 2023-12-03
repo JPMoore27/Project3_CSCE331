@@ -27,7 +27,7 @@ class ItemsApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        item_id = kwargs.get('itemid')
+        item_id = kwargs.get('pk')
         try:
             item = Items.objects.get(key=item_id)
         except Items.DoesNotExist:
@@ -50,7 +50,7 @@ class AddonsApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        addon_id = kwargs.get('addonid')
+        addon_id = kwargs.get('pk')
         try:
             addon = Addons.objects.get(pk=addon_id)
         except Addons.DoesNotExist:
@@ -73,7 +73,7 @@ class MerchApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        merch_id = kwargs.get('merchid')
+        merch_id = kwargs.get('pk')
         try:
             merch = Merch.objects.get(pk=merch_id)
         except Merch.DoesNotExist:
@@ -96,7 +96,7 @@ class OrdersApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        order_id = kwargs.get('orderid')
+        order_id = kwargs.get('pk')
         try:
             order = Orders.objects.get(pk=order_id)
         except Orders.DoesNotExist:
@@ -119,7 +119,7 @@ class StockApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        stock_id = kwargs.get('stockid')
+        stock_id = kwargs.get('pk')
         try:
             stock = Stock.objects.get(pk=stock_id)
         except Stock.DoesNotExist:
