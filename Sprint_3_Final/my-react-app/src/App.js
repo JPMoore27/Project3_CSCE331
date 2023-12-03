@@ -5,7 +5,7 @@ import MenuPage from './MenuPage';
 import HomePage from './HomePage';
 import Manager from './Manager';
 import Cashier from './Cashier';
-import Customer from './Customer';
+import CustomerPage from './CustomerPage';
 import './styles.css';
 /*global google*/
 
@@ -49,7 +49,7 @@ function App() {
           <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
           <Route path="/manager" element={<Manager />} />
           <Route path="/menupage" element={<MenuPage />} />
-          <Route path="/customer" element={<Customer />} />
+          <Route path="/CustomerPage" element={<CustomerPage />} />
           <Route path="/cashier" element={<Cashier />} />
           {/* Other routes... */}
         </Routes>

@@ -50,8 +50,7 @@ const AddOnSection = () => {
                 <div className="addon-items">
                   {items.map((item, index) => (
                     <div key={index} className="addon-item">
-                      <h3>Item {index + 1}</h3>
-                      <p>Addon Name: {item.addonname}</p>
+                      <h3>{item.addonname}</h3>
                       <p>Price: ${item.price} </p>
                       <p>Dairy: {item.dairy ? 'Yes' : 'No'}</p>
                     </div>
