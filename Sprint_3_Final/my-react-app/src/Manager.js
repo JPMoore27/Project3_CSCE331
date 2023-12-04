@@ -4,6 +4,7 @@ import { Route, Link, Routes } from 'react-router-dom';
 import Sales from './ManagerButtons/Sales.js';
 import './Manager.css';
 
+
 const Manager = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
@@ -44,8 +45,8 @@ const Manager = () => {
     <div className="manager-container">
       {/* Heading buttons for Cashier, Reports, Employee, Inventory, and Settings */}
       <div className="button-container">
-        <Link to="/cashier" className="heading-button">
-          Cashier
+        <Link to="/AddNewItem" className="heading-button">
+          Add New Item to Menu
         </Link>
         <Link to="/reports" className="heading-button">
           Reports
@@ -77,7 +78,7 @@ const Manager = () => {
 
       {/* Define routes for each page */}
       <Routes>
-        <Route path="/cashier" element={<div>Cashier Page</div>} />
+        <Route path="/AddNewItem" element={<div>Add New Item to Menu</div>} />
         <Route path="/reports" element={<div>Reports Page</div>} />
         <Route path="/employee" element={<div>Employee Page</div>} />
         <Route path="/inventory" element={<div>Inventory Page</div>} />
