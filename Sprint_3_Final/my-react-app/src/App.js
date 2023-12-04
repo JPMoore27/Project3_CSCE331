@@ -57,7 +57,7 @@ function App() {
               <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
               <Route path="/manager" element={<Manager />} />
               <Route path="/menupage" element={<MenuPage />} />
-              <Route path="/customer" element={<CustomerPage />} />
+              <Route path="/CustomerPage" element={<CustomerPage />} />
               <Route path="/cashier" element={<Cashier />} />
               <Route path="/AddNewItem" element={<AddNewItem />} />
               {/* Other routes... */}
