@@ -50,6 +50,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
           <Route path="/manager" element={<Manager />} />
+          <Route path="/AddNewItem" element={<AddNewItem />} />
           <Route path="/menupage" element={<MenuPage />} />
           <Route path="/CustomerPage" element={<CustomerPage />} />
           <Route path="/cashier" element={<Cashier />} />
@@ -57,9 +58,7 @@ function App() {
         </Routes>
         <div id="signinDiv"></div>
       </div>
-      <div>
-        <AddNewItem />
-      </div>
+      
     </Router>
     
   );
