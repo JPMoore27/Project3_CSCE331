@@ -22,4 +22,5 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('menudemo/', item_list, name='item_list'),
     path('api/', include('menu.urls')),
+    path('/')
 ]
