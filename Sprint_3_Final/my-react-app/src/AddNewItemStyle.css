@@ -1,0 +1,148 @@
+/* Reset some default browser styles */
+body, h1, h2, ul, li, p {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000000;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Header styling */
+header {
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Navigation styling */
+nav {
+    margin-top: 1rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+nav li {
+    margin: 0 15px;
+    transition: all 0.3s;
+}
+
+nav li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+}
+
+nav a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);
+}
+
+/* Section styling */
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 1rem;
+    background-color: #fff;
+    color: #000; /* Text color for section, assuming it needs to be readable against a light background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+section:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Add new item form styling */
+.add-item-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-item-form input,
+.add-item-form select,
+.add-item-form button {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #222;
+    border: none;
+    color: #fff;
+}
+
+
+.add-item-form button {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem; /* Add space on top of the button */
+}
+
+
+.add-item-form button:hover {
+    background-color: #ffcc00;
+}
+
+/* Stock items styling */
+
+
+
+/* Fade-in keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Additional global styles, if needed */
+
+.stock-items {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for each stock item (label with checkbox) */
+.stock-item {
+    display: flex;
+    align-items: center; /* Centers the checkbox vertically with the label */
+    margin-bottom: 10px; /* Adds space between each stock item */
+}
+
+/* Styles for the checkbox */
+.stock-item input[type="checkbox"] {
+    margin-right: 100%; /* Adds space between the checkbox and the label */
+    accent-color: #ffcc00; /* Changes the color of checkboxes */
+}
+
+.input-field input[type="checkbox"] {
+    margin-right: 50%; /* Adds space between the checkbox and the label */
+    accent-color: #ffcc00; /* Changes the color of checkboxes */
+}
