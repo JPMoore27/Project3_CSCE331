@@ -3,7 +3,8 @@ import axios from 'axios';
 import './styles.css'; // Base styles for your application
 import './AddNewItemStyle.css'; // Styles specific to the AddNewItem component
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+// const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://project3-team03g.onrender.com/api/';
 
 const AddNewItem = () => {
   const [items, setItems] = useState([]);

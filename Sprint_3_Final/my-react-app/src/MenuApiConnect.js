@@ -6,7 +6,7 @@ const MenuApiConnect = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/items/') // Replace with your API endpoint
+    fetch('https://project3-team03g.onrender.com/api/items/') // Replace with your API endpoint
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
