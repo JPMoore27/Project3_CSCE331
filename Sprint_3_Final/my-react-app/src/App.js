@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './Header';
 import MenuPage from './MenuPage';
 import HomePage from './HomePage';
@@ -10,53 +10,61 @@ import './styles.css';
 import './AddNewItem';
 import AddNewItem from './AddNewItem';
 /*global google*/
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+
 
 function App() {
-
-  function handleCallbackResponse(response){
-    console.log("Encoded JWT ID Token: " + response.credential);
-  }
-
-  useEffect(() => {
-    // Check if the 'google' object and account.id are available
-    if (window.google && window.google.account && window.google.account.id) {
-      window.google.account.id.initialize({
-        client_id: "598156964936-5qsp2pnbfrjkqccildlktudlpoa5csig.apps.googleusercontent.com",
-        callback: handleCallbackResponse
-      });
-
-      window.google.account.id.renderButton(
-        document.getElementById("signinDiv"),
-        { theme: "outline", size: "large" }
-      );
-    } else {
-      console.error("Google API or account.id not available");
-    }
-  }, []);
-
-  // Create a state variable to control menu visibility
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuClicked, setMenuClicked] = useState(false);
 
-  // Function to toggle the menu
   const toggleMenu = () => {
     setMenuClicked(!menuClicked);
   };
 
+  const handleLoginSuccess = (credentialResponse) => {
+    try {
+      const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
+      console.log(credentialResponseDecoded);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  const handleLoginFailure = () => {
+    console.log('Login Failed');
+    setIsAuthenticated(false);
+  };
+
   return (
     <Router>
-      <div className={`App ${menuClicked ? 'menu-open' : ''}`}>
-        <Header navigate={(page) => toggleMenu()} />
-        <Routes>
-        <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
-          <Route path="/manager" element={<Manager />} />
-          <Route path="/AddNewItem" element={<AddNewItem />} />
-          <Route path="/menupage" element={<MenuPage />} />
-          <Route path="/CustomerPage" element={<CustomerPage />} />
-          <Route path="/cashier" element={<Cashier />} />
-          {/* Other routes... */}
-        </Routes>
-        <div id="signinDiv"></div>
+      <div className={`App ${isAuthenticated ? 'app-content' : 'login-screen'}`}>
+        {!isAuthenticated ? (
+          <div className="login-container">
+            <h2>Sign-In</h2>
+            <GoogleLogin
+              onSuccess={handleLoginSuccess}
+              onError={handleLoginFailure}
+            />
+          </div>
+        ) : (
+          <>
+            <Header navigate={toggleMenu} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
+              <Route path="/manager" element={<Manager />} />
+              <Route path="/menupage" element={<MenuPage />} />
+              <Route path="/customer" element={<CustomerPage />} />
+              <Route path="/cashier" element={<Cashier />} />
+              <Route path="/AddNewItem" element={<AddNewItem />} />
+              {/* Other routes... */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </>
+        )}
       </div>
       
     </Router>
