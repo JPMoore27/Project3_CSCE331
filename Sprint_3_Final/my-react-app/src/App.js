@@ -7,8 +7,12 @@ import Manager from './Manager';
 import Cashier from './Cashier';
 import CustomerPage from './CustomerPage';
 import './styles.css';
+import './AddNewItem';
+import AddNewItem from './AddNewItem';
+/*global google*/
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -53,15 +57,18 @@ function App() {
               <Route path="/menu" element={menuClicked ? <MenuPage /> : null} />
               <Route path="/manager" element={<Manager />} />
               <Route path="/menupage" element={<MenuPage />} />
-              <Route path="/customer" element={<CustomerPage />} />
+              <Route path="/CustomerPage" element={<CustomerPage />} />
               <Route path="/cashier" element={<Cashier />} />
+              <Route path="/AddNewItem" element={<AddNewItem />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </>
         )}
       </div>
+      
     </Router>
+    
   );
 }
 
