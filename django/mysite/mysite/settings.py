@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=lvc_r6j92pe72lih$c&)i2ux+#epzs_l1u9--#_gf+i%%&-_7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['project3-team03g.onrender.com']
+ALLOWED_HOSTS = ['project3-team03g.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admindocs',
     #'users.apps.UsersConfig',
     'corsheaders',
     'rest_framework',
@@ -73,7 +74,9 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Add the origin of your React app
+    "http://localhost:3000", 
+    "http://localhost:8000",
+    "https://app-project3-team03g.onrender.com",
 ]
 
 # Allow all headers for development purposes, or configure as needed

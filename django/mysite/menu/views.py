@@ -10,16 +10,28 @@ from rest_framework.generics import ListAPIView
 
 #for demo purposes
 def item_list(request):
+    """
+    Generates a iterable that gives the name of every item in the menu. Used purely for demo and testing purposes
+    """
     items = Items.objects.values('itemname').distinct()
     return render(request, 'item_list.html', {'items': items})
 
 class ItemsApiView(APIView):
+    """
+    Api for items. All general API views work exactly the same. Get requests give jsons of all elements in table, post request adds an item to the database, delete requests delete an item with a corresponding key.
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Gives a json containing all the data for each element in items
+        """
         queryset = Items.objects.all()
         serializer = ItemsSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        """
+        Posts an item to the items table. Everything is optional but the key
+        """
         serializer = ItemsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -27,6 +39,9 @@ class ItemsApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
+        """
+        Deletes an item entry based off its key
+        """
         item_id = kwargs.get('pk')
         if 'itemid' in request.GET:
             item_id = request.GET.get('itemid')
@@ -40,6 +55,9 @@ class ItemsApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class AddonsApiView(APIView):
+    """
+    See api/items documentation for more details
+    """
     def get(self, request, *args, **kwargs):
         queryset = Addons.objects.all()
         serializer = AddonsSerializer(queryset, many=True)
@@ -63,6 +81,9 @@ class AddonsApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class MerchApiView(APIView):
+    """
+    See api/items documentation for more details
+    """
     def get(self, request, *args, **kwargs):
         queryset = Merch.objects.all()
         serializer = MerchSerializer(queryset, many=True)
@@ -86,6 +107,9 @@ class MerchApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class OrdersApiView(APIView):
+    """
+    See api/items documentation for more details
+    """
     def get(self, request, *args, **kwargs):
         queryset = Orders.objects.all()
         serializer = OrdersSerializer(queryset, many=True)
@@ -109,6 +133,9 @@ class OrdersApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class StockApiView(APIView):
+    """
+    See api/items documentation for more details
+    """
     def get(self, request, *args, **kwargs):
         queryset = Stock.objects.all()
         serializer = StockSerializer(queryset, many=True)
@@ -133,8 +160,17 @@ class StockApiView(APIView):
 
 #for testing
 class YourApiView(APIView):
+    """
+    Dummy API for testing api requests.
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Returns a response and nothing else if the message was recieved successfully
+        """
         return Response({'message': 'GET request received'}, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        """
+        Returns a response and nothing else if the message was recieved successfully
+        """
         return Response({'message': 'POST request received'}, status=status.HTTP_201_CREATED)
