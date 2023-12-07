@@ -4,6 +4,7 @@ import './AddNewItemStyle.css';
 
 const API_BASE_URL = 'https://project3-team03g.onrender.com/api/';
 
+
 const AddNewItem = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ itemname: '', price: 0, stockid: 0, dairy: false });
