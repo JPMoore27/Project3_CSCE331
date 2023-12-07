@@ -7,7 +7,9 @@ const API_BASE_URL = 'https://project3-team03g.onrender.com/api/';
 const ShoppingCartCheckOut = ({ cart }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [orders, setOrders] = useState([]); // Used to be items, setItems
+
   const [items, setItems] = useState([]); // To store fetched items
+
   const [newOrder, setNewOrder] = useState({
     orderid: 0,
     itemid: 8,
@@ -20,7 +22,10 @@ const ShoppingCartCheckOut = ({ cart }) => {
 
   useEffect(() => {
     fetchOrders();
+
     fetchItems(); // Fetch items when the component mounts
+
+
   }, [cart]);
 
   const fetchOrders = async () => {
@@ -32,6 +37,7 @@ const ShoppingCartCheckOut = ({ cart }) => {
     }
   };
 
+
   const fetchItems = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}items/`);
@@ -41,15 +47,22 @@ const ShoppingCartCheckOut = ({ cart }) => {
     }
   };
 
+
+  
+  
+
   const findLowestAvailableOrderId = () => {
     const orderIds = orders.map(order => order.orderid);
     return Math.max(0, ...orderIds) + 1; // Return 1 more than the highest in-use orderid
   };
 
+
   const getItemIdByName = (itemName) => {
     const item = items.find(item => item.itemname === itemName);
     return item ? item.itemid : 0; // Return 0 if item not found
   };
+
+
 
 
   const handleAddItem = async (itemId) => {
@@ -60,10 +73,10 @@ const ShoppingCartCheckOut = ({ cart }) => {
       // Create an array to store all the new orders
       const newOrders = [];
 
-      // Create a new order for each item in the cart
+
+
       
 
-      // Loop through the items in the cart
       const counter = -1;
       for (const cartItem of cart) {
         const newOrderId = startOrderId + newOrders.length;
@@ -84,8 +97,7 @@ const ShoppingCartCheckOut = ({ cart }) => {
         newOrders.push(order);
       }
 
-      // Loop through the new orders array and send each order to the server
-      
+
       for (const newOrderItem of newOrders) {
         const response = await axios.post(`${API_BASE_URL}orders/`, newOrderItem);
         console.log('Data sent to server:', newOrderItem); // Log the data being sent to the server
