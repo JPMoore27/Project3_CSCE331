@@ -60,6 +60,7 @@ const ShoppingCartCheckOut = ({ cart }) => {
       // Create an array to store all the new orders
       const newOrders = [];
 
+      // Create a new order for each item in the cart
       
 
       // Loop through the items in the cart
