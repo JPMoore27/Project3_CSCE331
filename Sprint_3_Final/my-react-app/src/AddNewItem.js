@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles.css'; // Base styles for your application
-import './AddNewItemStyle.css'; // Styles specific to the AddNewItem component
+import './AddNewItemStyle.css';
 
-// const API_BASE_URL = 'http://127.0.0.1:8000/api';
 const API_BASE_URL = 'https://project3-team03g.onrender.com/api/';
 
 const AddNewItem = () => {
   const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState({ itemname: '', price: 0, dairy: false });
+  const [newItem, setNewItem] = useState({ itemname: '', price: 0, stockid: 0, dairy: false });
   const [stockItems, setStockItems] = useState([]);
   const [selectedStockItems, setSelectedStockItems] = useState([]);
 
   useEffect(() => {
+    fetchItems();
     fetchStockItems();
   }, []);
+
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/items/`);
+      setItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
+  };
 
   const fetchStockItems = async () => {
     try {
@@ -63,58 +71,77 @@ const AddNewItem = () => {
     }
   };
 
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/items/${itemId}/`);
+      setItems(items.filter(item => item.key !== itemId));
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
+  // Filter items to show only those with unique itemid
+  const uniqueItems = Array.from(new Set(items.map(item => item.itemid)))
+    .map(itemid => items.find(item => item.itemid === itemid));
+
   return (
-    <div className="add-item-form"> 
-      <h2 className="header">Add New Item</h2> 
-      <div className="form-group"> {/* Added for grouping form elements */}
-        <label className="input-label"> 
+    <div>
+      <h2>Items List</h2>
+      <ul>
+        {uniqueItems.map(item => (
+          <li key={item.key}>
+            {item.itemname} - ${item.price}
+            <button onClick={() => handleDeleteItem(item.key)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <h2>Add New Item</h2>
+      <div>
+        <label>
           Item Name:
           <input
-            className="input-field" 
             type="text"
             value={newItem.itemname}
             onChange={(e) => setNewItem({ ...newItem, itemname: e.target.value })}
           />
         </label>
-        <label className="input-label"> 
+        <label>
           Price:
           <input
-            className="input-field" 
             type="number"
             value={newItem.price}
             onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
           />
         </label>
-        <label className="input-label"> 
+        <label>
           Dairy:
           <input
-            className="input-field"
             type="checkbox"
             checked={newItem.dairy}
             onChange={(e) => setNewItem({ ...newItem, dairy: e.target.checked })}
           />
         </label>
-      </div>
-      <div className="stock-items">
-      <h3>Stock Items</h3>
-      {stockItems.map(stockItem => (
-        <div key={stockItem.stockid} className="stock-item">
-          <input
-            type="checkbox"
-            id={`stock-item-${stockItem.stockid}`}
-            checked={selectedStockItems.some(item => item.stockid === stockItem.stockid)}
-            onChange={(e) => {
-              const updatedSelectedStockItems = e.target.checked
-                ? [...selectedStockItems, stockItem]
-                : selectedStockItems.filter(item => item.stockid !== stockItem.stockid);
-              setSelectedStockItems(updatedSelectedStockItems);
-            }}
-          />
-          <label htmlFor={`stock-item-${stockItem.stockid}`}>{stockItem.stockname}</label>
+        <div>
+          <h3>Stock Items</h3>
+          {stockItems.map(stockItem => (
+            <div key={stockItem.stockid}>
+              <input
+                type="checkbox"
+                checked={selectedStockItems.some(item => item.stockid === stockItem.stockid)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedStockItems([...selectedStockItems, stockItem]);
+                  } else {
+                    setSelectedStockItems(selectedStockItems.filter(item => item.stockid !== stockItem.stockid));
+                  }
+                }}
+              />
+              {stockItem.stockname}
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-      <button className="button" onClick={handleAddItem}>Add Item</button> 
+        <button onClick={handleAddItem}>Add Item</button>
+      </div>
     </div>
   );
 };
