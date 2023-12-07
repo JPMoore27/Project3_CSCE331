@@ -4,7 +4,7 @@ import Header from './Header';
 import MenuPage from './MenuPage';
 import HomePage from './HomePage';
 import Manager from './Manager';
-import Cashier from './Cashier';
+import CashierPage from './CashierPage';
 import CustomerPage from './CustomerPage';
 import './styles.css';
 import './AddNewItem';
@@ -58,7 +58,7 @@ function App() {
               <Route path="/manager" element={<Manager />} />
               <Route path="/menupage" element={<MenuPage />} />
               <Route path="/CustomerPage" element={<CustomerPage />} />
-              <Route path="/cashier" element={<Cashier />} />
+              <Route path="/CashierPage" element={<CashierPage />} />
               <Route path="/AddNewItem" element={<AddNewItem />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />
