@@ -49,7 +49,7 @@ const OrdersTable = () => {
           <th>Customer Name</th>
           <th>Takeout</th>
           <th>Price</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
