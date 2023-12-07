@@ -30,6 +30,8 @@ const ShoppingCartCheckOut = ({ cart }) => {
     }
   };
 
+  //na
+  
   const findLowestAvailableOrderId = () => {
     const orderIds = orders.map(order => order.orderid);
     return Math.max(0, ...orderIds) + 1; // Return 1 more than the highest in-use orderid
