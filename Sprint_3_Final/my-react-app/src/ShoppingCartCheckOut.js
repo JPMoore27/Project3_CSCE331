@@ -8,11 +8,6 @@ const ShoppingCartCheckOut = ({ cart }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [orders, setOrders] = useState([]); // Used to be items, setItems
   const [items, setItems] = useState([]); // To store fetched items
-
-
-
-
-
   const [newOrder, setNewOrder] = useState({
     orderid: 0,
     itemid: 8,
@@ -26,7 +21,6 @@ const ShoppingCartCheckOut = ({ cart }) => {
   useEffect(() => {
     fetchOrders();
     fetchItems(); // Fetch items when the component mounts
-
   }, [cart]);
 
   const fetchOrders = async () => {
@@ -38,8 +32,6 @@ const ShoppingCartCheckOut = ({ cart }) => {
     }
   };
 
-
-
   const fetchItems = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}items/`);
@@ -48,13 +40,6 @@ const ShoppingCartCheckOut = ({ cart }) => {
       console.error('Error fetching items:', error);
     }
   };
-
-
-
-
-  
-  
-
 
   const findLowestAvailableOrderId = () => {
     const orderIds = orders.map(order => order.orderid);
@@ -75,6 +60,10 @@ const ShoppingCartCheckOut = ({ cart }) => {
       // Create an array to store all the new orders
       const newOrders = [];
 
+      // Create a new order for each item in the cart
+      
+
+      // Loop through the items in the cart
       const counter = -1;
       for (const cartItem of cart) {
         const newOrderId = startOrderId + newOrders.length;
@@ -95,6 +84,8 @@ const ShoppingCartCheckOut = ({ cart }) => {
         newOrders.push(order);
       }
 
+      // Loop through the new orders array and send each order to the server
+      
       for (const newOrderItem of newOrders) {
         const response = await axios.post(`${API_BASE_URL}orders/`, newOrderItem);
         console.log('Data sent to server:', newOrderItem); // Log the data being sent to the server
