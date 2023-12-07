@@ -86,6 +86,16 @@ CORS_ALLOW_HEADERS = [
     'content-type',
 ]
 
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
