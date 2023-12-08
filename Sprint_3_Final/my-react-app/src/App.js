@@ -11,6 +11,8 @@ import './AddNewItem';
 import AddNewItem from './AddNewItem';
 import EditStock from './EditStock';
 import ViewOrder from './ViewOrder';
+import OrderHistoryChart from './OrderHistoryChart';
+import TotalSalesChart from './TotalSalesChart.js'
 /*global google*/
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
@@ -64,6 +66,8 @@ function App() {
               <Route path="/AddNewItem" element={<AddNewItem />} />
               <Route path="/EditStock" element={<EditStock />} />
               <Route path="/ViewOrder" element={<ViewOrder />} />
+              <Route path="/OrderHistoryChart" element={<OrderHistoryChart />} />
+              <Route path="/TotalSalesChart" element={<TotalSalesChart />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

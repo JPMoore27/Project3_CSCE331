@@ -43,30 +43,21 @@ const Manager = () => {
 
   return (
     <div className="manager-container">
-      {/* Heading buttons for Cashier, Reports, Employee, Inventory, and Settings */}
       <div className="button-container">
         <Link to="/AddNewItem" className="heading-button">
           Add New Item to Menu
         </Link>
         <Link to="/OrderHistoryChart" className="heading-button">
-          View Order Hisotory
+          View Order Sales Chart
         </Link>
-        <Link to="/employee" className="heading-button">
-          Employee
+        <Link to="/TotalSalesChart" className="heading-button">
+          View Total Sales Chart
         </Link>
-
-        {/* New buttons: Inventory, Settings, and Sales */}
         <Link to="/EditStock" className="heading-button">
           Edit Stock
         </Link>
         <Link to="/ViewOrder" className="heading-button">
-          View Order
-        </Link>
-        <Link to="/settings" className="heading-button">
-          Settings
-        </Link>
-        <Link to="/sales" className="heading-button">
-        Sales
+          View Order History
         </Link>
       </div>
 
@@ -79,15 +70,12 @@ const Manager = () => {
         </ul>
       </div>
 
-      {/* Define routes for each page */}
       <Routes>
         <Route path="/AddNewItem" element={<div>Add New Item to Menu</div>} />
         <Route path="/OrderHistoryChart" element={<div>View Order History</div>} />
-        <Route path="/employee" element={<div>Employee Page</div>} />
         <Route path="/EditStock" element={<div>EditStock Page</div>} />
         <Route path="/ViewOrder" element={<div>ViewOrder Page</div>} />
-        <Route path="/settings" element={<div>Settings Page</div>} />
-        <Route path="/sales" element={<Sales />} />
+        <Route path="/TotalSalesChart" element={<div>View Total Sales Chart</div>} />
       </Routes>
     </div>
   );
