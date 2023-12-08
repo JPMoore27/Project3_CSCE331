@@ -133,7 +133,7 @@ const ShoppingCartCheckOut = ({ cart }) => {
   return (
     <div>
       <center>
-        <button className="addon-item_button" onClick={() => setShowCheckoutPopup(true)}>Show Orders</button>
+        <button className="addon-item_button_2" onClick={() => setShowCheckoutPopup(true)}>Show Orders</button>
       </center>
 
       {showCheckoutPopup && (

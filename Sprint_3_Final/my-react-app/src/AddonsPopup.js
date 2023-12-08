@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './AddonPopupStyles.css';
+import { updateLastItemPrice } from './Cart'; // Import the updateLastItemPrice function
 
-const AddonsPopup = ({ showPopup, togglePopup }) => {
+const AddonsPopup = ({ showPopup, togglePopup, addToCart, itemPrice, cart, setCart }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
-    fetch('https://project3-team03g.onrender.com/api/addons/') // Replace with your API endpoint
+    fetch('https://project3-team03g.onrender.com/api/addons/')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,13 +17,11 @@ const AddonsPopup = ({ showPopup, togglePopup }) => {
         return response.json();
       })
       .then((data) => {
-        // Extract the desired data
         const extractedData = data.map((item) => ({
           addonname: item.addonname,
           price: item.price,
           dairy: item.dairy,
         }));
-
         setItems(extractedData);
         setLoading(false);
       })
@@ -33,12 +32,27 @@ const AddonsPopup = ({ showPopup, togglePopup }) => {
   }, []);
 
   const handleAddonClick = (index) => {
-    // Check if the item is already selected
     if (selectedItems.includes(index)) {
       setSelectedItems(selectedItems.filter((item) => item !== index));
     } else {
       setSelectedItems([...selectedItems, index]);
     }
+  };
+
+  const handleAddAddonToCart = () => {
+    let totalAddonPrice = 0;
+
+    for (const index of selectedItems) {
+      totalAddonPrice += parseFloat(items[index].price);
+    }
+
+    // Log the total addon price to the console
+    console.log("Total Addon Price:", totalAddonPrice);
+
+    // Call the updateLastItemPrice function with the cart, totalAddonPrice, and setCart as arguments
+    updateLastItemPrice(cart, totalAddonPrice, setCart);
+
+    togglePopup();
   };
 
   return (
@@ -69,6 +83,9 @@ const AddonsPopup = ({ showPopup, togglePopup }) => {
             </div>
             <button className="close_btn" onClick={togglePopup}>
               X
+            </button>
+            <button className="addon-item_button_2" onClick={handleAddAddonToCart}>
+              Add to Cart
             </button>
           </div>
         </div>

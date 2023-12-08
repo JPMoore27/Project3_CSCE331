@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MenuItem from './CashierItem';
-import ShoppingCartPopup from './ShoppingCartPopup';
-import { calculateTotal } from './Cart';
 import './MenuItem.css';
 import togoCoffeeCup from './assets/togoCoffeeCup.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import AddonsPopup from './AddonsPopup';
+import ShoppingCartPopup from './ShoppingCartPopup';
+import { calculateTotal } from './Cart';
+import CashierItem from './CashierItem';
 
 const CashierList = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -15,7 +15,8 @@ const CashierList = () => {
   const [animatingItems, setAnimatingItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAddonsPopup, setShowAddonsPopup] = useState(false); // Added showAddonsPopup state
+  const [showAddonsPopup, setShowAddonsPopup] = useState(false);
+  const [itemPrice, setItemPrice] = useState(0); // State to store item price
 
   useEffect(() => {
     fetch('https://project3-team03g.onrender.com/api/items/')
@@ -54,7 +55,6 @@ const CashierList = () => {
   };
 
   const togglePopup = () => {
-    // Toggle the addons popup visibility
     setShowAddonsPopup(!showAddonsPopup);
   };
 
@@ -86,14 +86,16 @@ const CashierList = () => {
         <div>
           <div className="grid-container">
             {menuItems.map((item, index) => (
-              <MenuItem
+              <CashierItem
                 key={index}
                 name={item.itemName}
                 price={item.price}
                 image={getRandomImage()}
                 addToCart={() => addToCart(item)}
-                togglePopup={togglePopup} // Pass the togglePopup function
+                togglePopup={togglePopup}
                 animatingItems={animatingItems}
+                // Set the item price when clicking on a menu item
+                setItemPrice={() => setItemPrice(item.price)}
               />
             ))}
           </div>
@@ -111,8 +113,15 @@ const CashierList = () => {
               calculateTotal={calculateTotal}
             />
           )}
-          {showAddonsPopup && ( // Render AddonsPopup when showAddonsPopup is true
-            <AddonsPopup showPopup={showAddonsPopup} togglePopup={togglePopup} />
+          {showAddonsPopup && (
+            <AddonsPopup
+              showPopup={showAddonsPopup}
+              togglePopup={togglePopup}
+              addToCart={addToCart}
+              itemPrice={itemPrice}
+              cart={cart}
+              setCart={setCart}
+            />
           )}
         </div>
       )}

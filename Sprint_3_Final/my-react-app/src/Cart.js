@@ -23,4 +23,12 @@ export function addToCart(cart, item, setCart) {
   export function calculateTotal(cart) {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   }
-  
+// Cart.js
+export function updateLastItemPrice(cart, inputPrice, setCart) {
+  if (cart.length > 0) {
+    const lastItemIndex = cart.length - 1;
+    const updatedCart = [...cart];
+    updatedCart[lastItemIndex].price =  updatedCart[lastItemIndex].price + inputPrice;
+    setCart(updatedCart);
+  }
+}
