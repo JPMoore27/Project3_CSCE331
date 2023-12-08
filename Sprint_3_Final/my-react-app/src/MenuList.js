@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MenuItem from './MenuItem';
-import ShoppingCartPopup from './ShoppingCartPopup';
-import { calculateTotal } from './Cart';
 import './MenuItem.css';
 import togoCoffeeCup from './assets/togoCoffeeCup.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import AddonsPopup from './AddonsPopup';
+import ShoppingCartPopup from './ShoppingCartPopup';
+import { calculateTotal } from './Cart';
+import CashierItem from './CashierItem';
 
 const MenuList = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -14,6 +15,8 @@ const MenuList = () => {
   const [animatingItems, setAnimatingItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAddonsPopup, setShowAddonsPopup] = useState(false);
+  const [itemPrice, setItemPrice] = useState(0); // State to store item price
 
   useEffect(() => {
     fetch('https://project3-team03g.onrender.com/api/items/')
@@ -51,6 +54,10 @@ const MenuList = () => {
     setShowCartPopup(false);
   };
 
+  const togglePopup = () => {
+    setShowAddonsPopup(!showAddonsPopup);
+  };
+
   const addToCart = (item) => {
     const existingItemIndex = cart.findIndex((cartItem) => cartItem.itemName === item.itemName);
     if (existingItemIndex !== -1) {
@@ -79,13 +86,16 @@ const MenuList = () => {
         <div>
           <div className="grid-container">
             {menuItems.map((item, index) => (
-              <MenuItem
+              <CashierItem
                 key={index}
                 name={item.itemName}
                 price={item.price}
                 image={getRandomImage()}
                 addToCart={() => addToCart(item)}
+                togglePopup={togglePopup}
                 animatingItems={animatingItems}
+                // Set the item price when clicking on a menu item
+                setItemPrice={() => setItemPrice(item.price)}
               />
             ))}
           </div>
@@ -101,6 +111,16 @@ const MenuList = () => {
               onClose={handleCloseCartPopup}
               onRemoveItem={removeFromCart}
               calculateTotal={calculateTotal}
+            />
+          )}
+          {showAddonsPopup && (
+            <AddonsPopup
+              showPopup={showAddonsPopup}
+              togglePopup={togglePopup}
+              addToCart={addToCart}
+              itemPrice={itemPrice}
+              cart={cart}
+              setCart={setCart}
             />
           )}
         </div>

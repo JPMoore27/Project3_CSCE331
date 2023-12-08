@@ -68,7 +68,7 @@ const AddonsPopup = ({ showPopup, togglePopup, addToCart, itemPrice, cart, setCa
                   {items.map((item, index) => (
                     <button
                       key={index}
-                      className={`addon-item_button${
+                      className={`addon-item_button_3${
                         selectedItems.includes(index) ? ' selected' : ''
                       }`}
                       onClick={() => handleAddonClick(index)}

@@ -23,7 +23,7 @@
     overflow-y: auto; /* Enable vertical scrolling if needed */
   }
   
-  .addon-item_button {
+  .addon-item_button_3 {
     background-color: #fff;
     border: none;
     color: black;
@@ -42,11 +42,11 @@
     color: black;
   }
   
-  .addon-item_button:active {
+  .addon-item_button_3:active {
     transform: scale(0.95);
   }
   
-  .addon-item_button.selected {
+  .addon-item_button_3.selected {
     background-color: #ffcc00;
     color: white; /* Change text color to white */
     width: 300px; /* Fixed width for buttons */
@@ -61,7 +61,7 @@
   }
   
   /* Additional styles for selected buttons, adjust as needed */
-  .addon-item_button.selected:hover {
+  .addon-item_button_3.selected:hover {
     background-color: #ffcc00; /* Background color when selected and hovered */
     /* Add any other styles you want for selected and hovered buttons */
   }
