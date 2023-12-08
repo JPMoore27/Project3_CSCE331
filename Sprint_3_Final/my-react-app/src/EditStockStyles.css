@@ -1,0 +1,57 @@
+/* Add a font family for the text */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style the table to have a full width, with some spacing and border collapse */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+  }
+  
+  /* Style the table header to have a dark background and text color */
+  thead tr {
+    background-color: #333;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  /* Add a hover effect on table rows */
+  tbody tr:hover {
+    background-color: #987e15;
+  }
+  
+  /* Style the table cells to have padding and border */
+  td, th {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Style the buttons to look more appealing */
+  button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #ffcc00;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  /* Add a hover effect to buttons */
+  button:hover {
+    opacity: 0.7;
+  }
+  
+  /* Style for the 'Choose Amount' and 'Enter' buttons to differentiate them */
+  .choose-amount, .enter {
+    background-color: #0275d8;
+  }
+  
+  /* Differentiate 'Subtract' buttons with a color */
+  .subtract {
+    background-color: #d9534f;
+  }
+  
