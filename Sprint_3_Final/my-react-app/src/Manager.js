@@ -48,8 +48,8 @@ const Manager = () => {
         <Link to="/AddNewItem" className="heading-button">
           Add New Item to Menu
         </Link>
-        <Link to="/reports" className="heading-button">
-          Reports
+        <Link to="/OrderHistoryChart" className="heading-button">
+          View Order Hisotory
         </Link>
         <Link to="/employee" className="heading-button">
           Employee
@@ -82,7 +82,7 @@ const Manager = () => {
       {/* Define routes for each page */}
       <Routes>
         <Route path="/AddNewItem" element={<div>Add New Item to Menu</div>} />
-        <Route path="/reports" element={<div>Reports Page</div>} />
+        <Route path="/OrderHistoryChart" element={<div>View Order History</div>} />
         <Route path="/employee" element={<div>Employee Page</div>} />
         <Route path="/EditStock" element={<div>EditStock Page</div>} />
         <Route path="/ViewOrder" element={<div>ViewOrder Page</div>} />
