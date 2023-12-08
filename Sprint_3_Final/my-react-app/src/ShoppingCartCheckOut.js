@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import './ShoppingCartCheckOutStyles.css';
 
 const API_BASE_URL = 'https://project3-team03g.onrender.com/api/';
 
 const ShoppingCartCheckOut = ({ cart }) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [orders, setOrders] = useState([]); // Used to be items, setItems
+  const [showCheckoutPopup, setShowCheckoutPopup] = useState(false);
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [items, setItems] = useState([]);
   const [newOrder, setNewOrder] = useState({
     orderid: 0,
     itemid: 8,
@@ -16,9 +20,11 @@ const ShoppingCartCheckOut = ({ cart }) => {
     takeout: false,
     price: "0.00"
   });
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
     fetchOrders();
+    fetchItems();
   }, [cart]);
 
   const fetchOrders = async () => {
@@ -30,26 +36,53 @@ const ShoppingCartCheckOut = ({ cart }) => {
     }
   };
 
-  const findLowestAvailableOrderId = () => {
-    const orderIds = orders.map(order => order.orderid);
-    return Math.max(0, ...orderIds) + 1; // Return 1 more than the highest in-use orderid
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}items/`);
+      setItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
   };
 
-  const handleAddItem = async (itemId) => {
-    try {
-      // Find the highest order ID and add 1
-      const startOrderId = findLowestAvailableOrderId();
+  const findLowestAvailableOrderId = () => {
+    const orderIds = orders.map(order => order.orderid);
+    return Math.max(0, ...orderIds) + 1;
+  };
+  const closeButtonStyles = {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    cursor: 'pointer',
+  };
 
-      // Create an array to store all the new orders
+  const boxStyles = {
+    width: '400px',
+    background: 'rgba(0, 0, 0, 0.8)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  };
+
+  const getItemIdByName = (itemName) => {
+    const item = items.find(item => item.itemname === itemName);
+    return item ? item.itemid : 0;
+  };
+
+  const handleAddItem = async () => {
+    try {
+      const startOrderId = findLowestAvailableOrderId();
       const newOrders = [];
 
-      // Loop through the items in the cart
       for (const cartItem of cart) {
         const newOrderId = startOrderId + newOrders.length;
-
+        const tempItemName = cartItem.itemName;
+        const itemId_found = getItemIdByName(tempItemName);
         const order = {
           orderid: newOrderId,
-          itemid: itemId, // Use the passed itemId
+          itemid: itemId_found,
           quantity: cartItem.quantity,
           time: new Date().toISOString(),
           customername: newOrder.customername,
@@ -57,21 +90,16 @@ const ShoppingCartCheckOut = ({ cart }) => {
           price: cartItem.price,
         };
 
-        // Push the new order to the array
         newOrders.push(order);
       }
 
-      // Loop through the new orders array and send each order to the server
       for (const newOrderItem of newOrders) {
         const response = await axios.post(`${API_BASE_URL}orders/`, newOrderItem);
-        console.log('Data sent to server:', newOrderItem); // Log the data being sent to the server
-        console.log('Server response:', response.data); // Log the server's response
+        console.log('Data sent to server:', newOrderItem);
+        console.log('Server response:', response.data);
       }
 
-      // Update the orders state with the new orders
       setOrders([...orders, ...newOrders]);
-
-      // Reset the newItem state
       setNewOrder({
         orderid: 0,
         itemid: 8,
@@ -81,40 +109,84 @@ const ShoppingCartCheckOut = ({ cart }) => {
         takeout: false,
         price: "0.00",
       });
+
+      // Set a confirmation message
+      setConfirmationMessage('Orders have been successfully added.');
+
+      // Show the confirmation pop-up
+      setShowCheckoutPopup(false); // Hide the checkout pop-up
+      setShowConfirmationPopup(true); // Show the confirmation pop-up
+
+      // Hide the confirmation pop-up after 3 seconds
+      setTimeout(() => {
+        setShowConfirmationPopup(false);
+      }, 3000);
     } catch (error) {
       console.error('Error adding ORDER:', error);
     }
   };
 
+  const closeCheckoutPopup = () => {
+    setShowCheckoutPopup(false);
+  };
+
   return (
     <div>
-      <center><button className="addon-item_button" onClick={() => setShowPopup(true)}>Show Orders</button></center>
+      <center>
+        <button className="addon-item_button" onClick={() => setShowCheckoutPopup(true)}>Show Orders</button>
+      </center>
 
-      {showPopup && (
+      {showCheckoutPopup && (
+        <div style={boxStyles}>
+            <div className="popup">
+                <div className="popup-content">
+                    <div className="popup-header">
+                        
+                    <h2>Orders</h2>
+                    <FontAwesomeIcon
+                        icon={faTimes}
+                        className="close-icon"
+                        style={closeButtonStyles}
+                        onClick={closeCheckoutPopup}
+                        />
+                    
+                    </div>
+                    <div className="orders-container">
+                    <h3>Check out</h3>
+                    <div>
+                        <label>
+                        Customer Name:
+                        <input
+                            type="text"
+                            value={newOrder.customername}
+                            onChange={event => setNewOrder({ ...newOrder, customername: event.target.value })}
+                        />
+                        </label>
+                        <label>
+                        Takeout:
+                        <input
+                            type="checkbox"
+                            checked={newOrder.takeout}
+                            onChange={event => setNewOrder({ ...newOrder, takeout: event.target.checked })}
+                        />
+                        </label>
+                        <button onClick={handleAddItem}>Check out</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      )}
+
+      {showConfirmationPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Orders</h2>
-            <div className="orders-container">
-              <h3>Check out</h3>
-              <div>
-                <label>
-                  Customer Name:
-                  <input
-                    type="text"
-                    value={newOrder.customername}
-                    onChange={event => setNewOrder({ ...newOrder, customername: event.target.value })}
-                  />
-                </label>
-                <label>
-                  Takeout:
-                  <input
-                    type="checkbox"
-                    checked={newOrder.takeout}
-                    onChange={event => setNewOrder({ ...newOrder, takeout: event.target.checked })}
-                  />
-                </label>
-                <button onClick={() => handleAddItem(newOrder.itemid)}>Check out</button>
-              </div>
+            <div className="popup-header">
+              <h2>Order Confirmation</h2>
+              <span className="close-popup" onClick={() => setShowConfirmationPopup(false)}>X</span>
+            </div>
+            <div className="confirmation-message">
+              {confirmationMessage}
             </div>
           </div>
         </div>

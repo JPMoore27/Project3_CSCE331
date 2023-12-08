@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MenuItem from './MenuItem';
+import MenuItem from './CashierItem';
 import ShoppingCartPopup from './ShoppingCartPopup';
 import { calculateTotal } from './Cart';
 import './MenuItem.css';
 import togoCoffeeCup from './assets/togoCoffeeCup.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import AddonsPopup from './AddonsPopup';
 
 const CashierList = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -14,6 +15,7 @@ const CashierList = () => {
   const [animatingItems, setAnimatingItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAddonsPopup, setShowAddonsPopup] = useState(false); // Added showAddonsPopup state
 
   useEffect(() => {
     fetch('https://project3-team03g.onrender.com/api/items/')
@@ -51,6 +53,11 @@ const CashierList = () => {
     setShowCartPopup(false);
   };
 
+  const togglePopup = () => {
+    // Toggle the addons popup visibility
+    setShowAddonsPopup(!showAddonsPopup);
+  };
+
   const addToCart = (item) => {
     const existingItemIndex = cart.findIndex((cartItem) => cartItem.itemName === item.itemName);
     if (existingItemIndex !== -1) {
@@ -85,6 +92,7 @@ const CashierList = () => {
                 price={item.price}
                 image={getRandomImage()}
                 addToCart={() => addToCart(item)}
+                togglePopup={togglePopup} // Pass the togglePopup function
                 animatingItems={animatingItems}
               />
             ))}
@@ -102,6 +110,9 @@ const CashierList = () => {
               onRemoveItem={removeFromCart}
               calculateTotal={calculateTotal}
             />
+          )}
+          {showAddonsPopup && ( // Render AddonsPopup when showAddonsPopup is true
+            <AddonsPopup showPopup={showAddonsPopup} togglePopup={togglePopup} />
           )}
         </div>
       )}
