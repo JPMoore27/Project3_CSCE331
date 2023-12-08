@@ -26,26 +26,32 @@ const TotalSalesChart = () => {
   const processOrderData = () => {
     const salesData = {};
     let totalSalesToDate = 0;
-
+  
     orderData.forEach(order => {
       totalSalesToDate += parseFloat(order.price);
       const date = new Date(order.time).toLocaleDateString();
       salesData[date] = totalSalesToDate;
     });
-
+  
+    // Sort dates
+    const sortedDates = Object.keys(salesData).sort((a, b) => new Date(a) - new Date(b));
+  
+    // Create sorted dataset
+    const sortedDataset = sortedDates.map(date => salesData[date]);
+  
     return {
-      labels: Object.keys(salesData),
+      labels: sortedDates,
       datasets: [
         {
           label: 'Total Sales to Date',
-          data: Object.values(salesData),
+          data: sortedDataset,
           fill: false,
           borderColor: '#fb3',
           borderWidth: 2,
         },
       ],
     };
-  };
+  };  
 
   return (
     <div>

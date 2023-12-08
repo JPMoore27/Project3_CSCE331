@@ -31,20 +31,23 @@ const OrderHistoryChart = () => {
       const totalSales = salesData[date] || 0;
       salesData[date] = totalSales + parseFloat(order.price);
     });
-
+  
+    // Sort dates
+    const sortedDates = Object.keys(salesData).sort((a, b) => new Date(a) - new Date(b));
+  
     return {
-      labels: Object.keys(salesData),
+      labels: sortedDates,
       datasets: [
         {
           label: 'Total Sales',
-          data: Object.values(salesData),
+          data: sortedDates.map(date => salesData[date]),
           fill: false,
           borderColor: '#fb3',
           borderWidth: 2,
         },
       ],
     };
-  };
+  };  
 
   return (
     <div>
