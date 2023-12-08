@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ItemsSerializer, AddonsSerializer, MerchSerializer, OrdersSerializer, StockSerializer
 from rest_framework.generics import ListAPIView
-
+from decimal import Decimal
 # Create your views here.
 
 #for demo purposes
@@ -157,6 +157,32 @@ class StockApiView(APIView):
 
         stock.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def patch(self, request, *args, **kwargs):
+        stock_id = kwargs.get('pk')
+        try:
+            stock = Stock.objects.get(pk=stock_id)
+        except Stock.DoesNotExist:
+            return Response({"error": "Stock not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Update the amount field based on the value provided in the request data
+        new_amount_str = request.data.get('amount')
+        print(new_amount_str)
+        if new_amount_str is not None:
+            try:
+                new_amount = Decimal(new_amount_str)
+            except ValueError:
+                return Response({"error": "Invalid amount format"}, status=status.HTTP_400_BAD_REQUEST)
+
+            stock.amount += new_amount
+            stock.save()
+
+            # Serialize and return the updated stock data
+            serializer = StockSerializer(stock)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Amount not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 #for testing
 class YourApiView(APIView):
