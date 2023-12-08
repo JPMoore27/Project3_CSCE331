@@ -59,6 +59,9 @@ const Manager = () => {
         <Link to="/EditStock" className="heading-button">
           Edit Stock
         </Link>
+        <Link to="/ViewOrder" className="heading-button">
+          View Order
+        </Link>
         <Link to="/settings" className="heading-button">
           Settings
         </Link>
@@ -82,6 +85,7 @@ const Manager = () => {
         <Route path="/reports" element={<div>Reports Page</div>} />
         <Route path="/employee" element={<div>Employee Page</div>} />
         <Route path="/EditStock" element={<div>EditStock Page</div>} />
+        <Route path="/ViewOrder" element={<div>ViewOrder Page</div>} />
         <Route path="/settings" element={<div>Settings Page</div>} />
         <Route path="/sales" element={<Sales />} />
       </Routes>

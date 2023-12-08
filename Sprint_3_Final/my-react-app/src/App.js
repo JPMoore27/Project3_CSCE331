@@ -10,6 +10,7 @@ import './styles.css';
 import './AddNewItem';
 import AddNewItem from './AddNewItem';
 import EditStock from './EditStock';
+import ViewOrder from './ViewOrder';
 /*global google*/
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
@@ -62,6 +63,7 @@ function App() {
               <Route path="/CashierPage" element={<CashierPage />} />
               <Route path="/AddNewItem" element={<AddNewItem />} />
               <Route path="/EditStock" element={<EditStock />} />
+              <Route path="/ViewOrder" element={<ViewOrder />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
