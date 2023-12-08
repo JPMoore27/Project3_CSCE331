@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import axios from 'axios';
-import Chart from 'chart.js/auto';
 
 const API_BASE_URL = 'https://project3-team03g.onrender.com/api';
 
-const OrderHistoryChart = () => {
+const TotalSalesChart = () => {
   const [orderData, setOrderData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,17 +25,19 @@ const OrderHistoryChart = () => {
 
   const processOrderData = () => {
     const salesData = {};
+    let totalSalesToDate = 0;
+
     orderData.forEach(order => {
+      totalSalesToDate += parseFloat(order.price);
       const date = new Date(order.time).toLocaleDateString();
-      const totalSales = salesData[date] || 0;
-      salesData[date] = totalSales + parseFloat(order.price);
+      salesData[date] = totalSalesToDate;
     });
 
     return {
       labels: Object.keys(salesData),
       datasets: [
         {
-          label: 'Total Sales',
+          label: 'Total Sales to Date',
           data: Object.values(salesData),
           fill: false,
           borderColor: '#fb3',
@@ -48,7 +49,7 @@ const OrderHistoryChart = () => {
 
   return (
     <div>
-      <h2>Sales Chart</h2>
+      <h2>Total Sales to Date Chart</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -60,4 +61,4 @@ const OrderHistoryChart = () => {
   );
 };
 
-export default OrderHistoryChart;
+export default TotalSalesChart;
