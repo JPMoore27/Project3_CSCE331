@@ -9,7 +9,6 @@ import CustomerPage from './CustomerPage';
 import './styles.css';
 import './AddNewItem';
 import AddNewItem from './AddNewItem';
-import OrderHistoryChart from './OrderHistoryChart';
 /*global google*/
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
@@ -61,7 +60,6 @@ function App() {
               <Route path="/CustomerPage" element={<CustomerPage />} />
               <Route path="/CashierPage" element={<CashierPage />} />
               <Route path="/AddNewItem" element={<AddNewItem />} />
-              <Route path="/OrderHistoryChart" element={<OrderHistoryChart />} />
               {/* Other routes... */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
