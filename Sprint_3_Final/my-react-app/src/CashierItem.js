@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import './MenuItem.css';
 
-const MenuItem = ({ name, price, image, index, addToCart, cart, setCart }) => {
+const MenuItem = ({ name, price, image, index, addToCart, cart, setCart, togglePopup }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -12,6 +12,10 @@ const MenuItem = ({ name, price, image, index, addToCart, cart, setCart }) => {
   const handleAddToCart = () => {
     // Create an item object. Make sure you have a unique identifier for each item.
     const item = { id: index, name, price };
+    
+    // Open the addons popup by calling togglePopup
+    togglePopup();
+    
     addToCart(cart, item, setCart);
   };
 

@@ -37,7 +37,7 @@ const AddOnSection = () => {
 
   return (
     <div>
-      <center><button class="addon-item_button" onClick={togglePopup}>Show Addons</button></center>
+      <center><button class="addon-item_button_2" onClick={togglePopup}>Show Addons</button></center>
       
       {showPopup && (
         <div className="popup">
