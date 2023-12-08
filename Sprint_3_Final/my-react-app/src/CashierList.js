@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MenuItem from './MenuItem';
+import MenuItem from './CashierItem';
 import ShoppingCartPopup from './ShoppingCartPopup';
 import { calculateTotal } from './Cart';
 import './MenuItem.css';
